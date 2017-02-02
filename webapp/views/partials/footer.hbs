@@ -1,0 +1,35 @@
+<footer class="grid-container row">
+    <div class="col-sm-12">
+        Footer
+    </div>
+</footer>
+<!-- JS -->
+<script type="text/javascript" src="/app.base.min.js"></script>
+<script type="text/javascript" src="/app.handlebars.min.js"></script>
+<script type="text/javascript" src="/app.main.min.js"></script>
+
+<!--header menu modal-->
+<section class="modal--fade" id="modal-mobile-menu" data-stackable="false" tabindex="-1" role="dialog" aria-labelledby="label-fade" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+            <ul id="mobile-menu">
+                {{#each menuItems}}
+                    <li class="{{class}}">
+                        <a href="{{url}}" class="{{#if isActive}}active{{/if}}">{{title}}</a>
+                        {{#if children}}
+                            <ul class="mobile-sub-menu">
+                                {{#each children}}
+                                    <li class="{{class}}">
+                                        <a href="{{url}}">{{title}}</a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    <a href="#!" class="modal-close" title="Close this modal"
+       data-dismiss="modal" data-close="Close">&times;</a>
+</section>

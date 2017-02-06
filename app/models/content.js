@@ -14,7 +14,7 @@ content.getPortfolioItemObjects = function(response){
                 var data = JSON.parse(response);
                 data = _.map(data.posts, function(entry){
                     const pageTitle = utilService.getValueByKey(entry,'title'),
-                        metaTitle = utilService.simpleNullCheck(entry.custom_fields,'wpcf-meta-title')?utilService.getFirstValueByKey(entry.custom_fields,'wpcf-meta-title'):utilService.metaTitlePrefix+pageTitle;
+                        metaTitle = utilService.nullCheck(entry.custom_fields,'wpcf-meta-title')?utilService.getFirstValueByKey(entry.custom_fields,'wpcf-meta-title'):utilService.metaTitlePrefix+pageTitle;
                     return {
                         id: utilService.getValueByKey(entry,'id'),
                         title: pageTitle,
@@ -24,7 +24,7 @@ content.getPortfolioItemObjects = function(response){
                         techStack: utilService.getFirstValueByKey(entry.custom_fields,'wpcf-portfolio-tech-stack'),
                         repositoryUrl: utilService.getFirstValueByKey(entry.custom_fields,'wpcf-portfolio-repository-url'),
                         icon: utilService.getFirstValueByKey(entry.custom_fields,'wpcf-portfolio-icon'),
-                        portfolioGroup: utilService.simpleNullCheck(entry, 'taxonomy_portfolio-group')? entry['taxonomy_portfolio-group'][0].title:'',
+                        portfolioGroup: utilService.nullCheck(entry, 'taxonomy_portfolio-group')? entry['taxonomy_portfolio-group'][0].title:'',
                         // meta
                         metaDatePublished: utilService.getValueByKey(entry,'date'),//don't format
                         metaDateModified: utilService.getValueByKey(entry,'modified'),
@@ -52,9 +52,9 @@ content.getMusicPostObjects = function(response){
                 var data = JSON.parse(response);
                 data = _.map(data.posts, function(entry){
                     const pageTitle = utilService.getValueByKey(entry,'title'),
-                        metaTitle = utilService.simpleNullCheck(entry.custom_fields,'wpcf-meta-title')?utilService.getFirstValueByKey(entry.custom_fields,'wpcf-meta-title'):utilService.metaTitlePrefix+pageTitle,
+                        metaTitle = utilService.nullCheck(entry.custom_fields,'wpcf-meta-title')?utilService.getFirstValueByKey(entry.custom_fields,'wpcf-meta-title'):utilService.metaTitlePrefix+pageTitle,
                         excerpt = utilService.getFirstValueByKey(entry.custom_fields,'wpcf-music-excerpt'),
-                        metaDescription = utilService.simpleNullCheck(entry.custom_fields,'wpcf-meta-description')?utilService.getFirstValueByKey(entry.custom_fields,'wpcf-meta-description'):excerpt;
+                        metaDescription = utilService.nullCheck(entry.custom_fields,'wpcf-meta-description')?utilService.getFirstValueByKey(entry.custom_fields,'wpcf-meta-description'):excerpt;
                     return {
                         id: utilService.getValueByKey(entry,'id'),
                         title: pageTitle,
@@ -161,8 +161,8 @@ function getPageModel(data){
     //private method because it's not wrapped in try catch or promisified
     const pageTitle = utilService.getValueByKey(data,'title'),
     //use blank url for homepage
-        pageUrl =  utilService.simpleNullCheck(data,'slug') && utilService.getValueByKey(data,'slug').toLowerCase().indexOf('home')!==-1?'':utilService.getValueByKey(data,'slug'),
-        metaTitle = utilService.simpleNullCheck(data.custom_fields,'wpcf-meta-title')?utilService.getFirstValueByKey(data.custom_fields,'wpcf-meta-title'):utilService.metaTitlePrefix+pageTitle;
+        pageUrl =  utilService.nullCheck(data,'slug') && utilService.getValueByKey(data,'slug').toLowerCase().indexOf('home')!==-1?'':utilService.getValueByKey(data,'slug'),
+        metaTitle = utilService.nullCheck(data.custom_fields,'wpcf-meta-title')?utilService.getFirstValueByKey(data.custom_fields,'wpcf-meta-title'):utilService.metaTitlePrefix+pageTitle;
     return {
         id: utilService.getValueByKey(data,'id'),
         title: pageTitle,

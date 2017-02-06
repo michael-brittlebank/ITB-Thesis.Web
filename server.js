@@ -106,7 +106,7 @@ app.use(function(req, res, next) {
 // error handlers
 app.use(function (error, req, res, next) {
     //page request errors
-    if (error && utilService.simpleNullCheck(error, 'status')) {
+    if (error && utilService.nullCheck(error, 'status')) {
         switch (error.status) {
             case utilService.status.notFound:
                 pageController.get404Page(req, res, next);

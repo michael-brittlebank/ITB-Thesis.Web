@@ -45,7 +45,7 @@ function addUrlsToSitemap(items, type){
             break;
     }
     _.each(items, function(entry){
-        if (utilService.simpleNullCheck(entry, 'url') && excludedUrls.indexOf(entry.url.replace(/\//g,'')) === -1){
+        if (utilService.nullCheck(entry, 'url') && excludedUrls.indexOf(entry.url.replace(/\//g,'')) === -1){
             sitemap.add({
                 url : entry.url,
                 changefreq :changeFrequency,

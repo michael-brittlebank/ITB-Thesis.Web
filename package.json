@@ -7,11 +7,12 @@
     "start": "foreman start -f Procfile",
     "stop": "foreman stop -f Procfile",
     "dev": "foreman start -f Procfile_dev",
-    "export": "sudo nf export -o /etc/init"
+    "export": "sudo nf export -o /etc/init",
+    "lint": "jshint --exclude node_modules ."
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mike-stumpf/ITB-Thesis.Web"
   },
   "keywords": [],
   "author": "mike-stumpf",
@@ -50,6 +51,7 @@
     "grunt-postcss": "0.8.0",
     "handlebars": "4.0.5",
     "helmet": "3.1.0",
+    "jshint": "2.9.4",
     "load-grunt-tasks": "3.5.2",
     "lodash": "4.17.2",
     "moment": "2.17.0",

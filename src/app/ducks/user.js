@@ -1,41 +1,59 @@
-import { browserHistory } from 'react-router';
 import axios from 'axios';
+import store from '../../store';
 
 export const types = {
-    AUTO_LOGIN: 'AUTH/AUTH_AUTO_LOGIN',
-    SIGNUP_REQUEST: 'AUTH/SIGNUP_REQUEST',
-    SIGNUP_SUCCESS: 'AUTH/SIGNUP_SUCCESS',
-    SIGNUP_FAILURE: 'AUTH/SIGNUP_FAILURE',
-    LOGIN_REQUEST: 'AUTH/LOGIN_REQUEST',
-    LOGIN_SUCCESS: 'AUTH/LOGIN_SUCCESS',
-    LOGIN_FAILURE: 'AUTH/LOGIN_FAILURE',
-    LOGOUT: 'AUTH/LOGOUT'
+    LOGIN_REQUEST: 'USER/LOGIN_REQUEST',
+    LOGIN_SUCCESS: 'USER/LOGIN_SUCCESS',
+    LOGIN_FAILURE: 'USER/LOGIN_FAILURE',
+    PROFILE_REQUEST: 'USER/PROFILE_REQUEST',
+    PROFILE_SUCCESS: 'USER/PROFILE_SUCCESS',
+    PROFILE_FAILURE: 'USER/PROFILE_FAILURE',
+    LOGOUT: 'USER/LOGOUT'
 };
 
+let defaultUser = {},
+    defaultSessionToken = '',
+    defaultError = null;
+
 export const initialState = {
-    user: {},
+    user: defaultUser,
+    sessionToken: defaultSessionToken,
     isLoading: false,
-    error: null
+    error: defaultError
 };
 
 //reducers
 export default (state = initialState, action) => {
     switch (action.type) {
-        case types.SIGNUP_REQUEST:
+        case types.PROFILE_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+                error: defaultError
+            };
         case types.LOGIN_REQUEST:
             return {
                 ...state,
                 isLoading: true,
-                error: null
+                error: defaultError
             };
-        case types.SIGNUP_SUCCESS:
         case types.LOGIN_SUCCESS:
+            return {
+                ...state,
+                sessionToken: action.sessionToken
+            };
+        case types.PROFILE_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 user: action.user
             };
-        case types.SIGNUP_FAILURE:
+        case types.PROFILE_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
         case types.LOGIN_FAILURE:
             return {
                 ...state,
@@ -46,7 +64,8 @@ export default (state = initialState, action) => {
         case types.LOGOUT:
             return {
                 ...state,
-                user: null
+                user: defaultUser,
+                sessionToken: defaultSessionToken
             };
         default:
             return state
@@ -54,7 +73,30 @@ export default (state = initialState, action) => {
 }
 
 export const actions = {
-    signup: (email, password) => ({ type: types.SIGNUP_REQUEST, email, password }),
+    profile: function(){
+        return function (dispatch) {
+            dispatch({type: types.PROFILE_REQUEST});
+            let currentState = store.getState(),
+                sessionToken = currentState.userState.sessionToken;
+            return axios({
+                method: 'GET',
+                url: process.env.REACT_APP_API_URL + '/users/me',
+                headers: {'Authorization': 'Bearer ' + sessionToken}
+            })
+                .then((response) => {
+                    dispatch({
+                        type: types.PROFILE_SUCCESS,
+                        user: response.data
+                    });
+                })
+                .catch((error) => {
+                    dispatch({
+                        type: types.PROFILE_FAILURE,
+                        error: error
+                    });
+                });
+        };
+    },
     login: function(email, password){
         return function (dispatch) {
             dispatch({type:types.LOGIN_REQUEST});
@@ -67,24 +109,14 @@ export const actions = {
                 }
             })
                 .then((response) => {
-                    if(!response.hasOwnProperty('data') || !response.data.hasOwnProperty('sessionToken')){
-                        throw Error('ducks.user.login - invalid response object');
-                    }
-                    return axios({
-                        method: 'GET',
-                        url: process.env.REACT_APP_API_URL+'/users/me',
-                        headers: {'Authorization': 'Bearer '+response.data.sessionToken}
-                    })
-                        .then((response)=>{
-                            dispatch({
-                                type: types.LOGIN_SUCCESS,
-                                user: response.data
-                            });
-                            return browserHistory.push('dashboard');
-                        });
+                    let sessionToken = response.data.sessionToken;
+                    dispatch({
+                        type: types.LOGIN_SUCCESS,
+                        sessionToken: sessionToken
+                    });
+                    return store.dispatch(actions.profile());
                 })
                 .catch((error) => {
-                    console.log('ERROR',error);
                     dispatch({
                         type: types.LOGIN_FAILURE,
                         user: {
@@ -94,7 +126,7 @@ export const actions = {
                         error: error
                     });
                 });
-        }
+        };
     },
     logout: () => ({ type: types.LOGOUT })
 };

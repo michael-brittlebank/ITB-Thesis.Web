@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import store from './store'
-import AuthorizationService from './app/services/authorization';
+import MiddlewareService from './app/services/middleware';
 
 // Layouts
 import MainLayout from './app/layouts/main';
@@ -19,7 +19,7 @@ export default (
     <Provider store={store}>
         <Router history={history}>
             <Route path="/" name="login" component={LoginContainer} />
-            <Route component={MainLayout} onEnter={AuthorizationService.isUserLoggedIn}>
+            <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
                 <Route path="dashboard" name="dashboard" component={DashboardContainer}/>
             </Route>
         </Router>

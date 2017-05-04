@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import Login from './login';
 import {connect} from 'react-redux';
+import { browserHistory } from 'react-router';
+
+import Login from './login';
+
 import HelperService from '../../services/helpers';
+import authorizationService from '../../services/authorization';
 
 class LoginContainer extends Component {
     render() {
@@ -10,6 +14,9 @@ class LoginContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
+    if (authorizationService.isUserLoggedIn(state)){
+        return browserHistory.push('dashboard');
+    }
     return {
         user: HelperService.isDevelopment()?{
             email: 'admin@test.com',

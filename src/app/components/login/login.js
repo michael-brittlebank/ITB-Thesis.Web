@@ -28,10 +28,14 @@ class Login extends Component {
         }
     }
 
-    componentWillReceiveProps(props){
-        if (props.error){
+    componentWillReceiveProps(nextProps){
+        console.log('recieved proprs',nextProps);
+        if (nextProps.error){
             //todo, proper digest of login error
         }
+        // if (usersService.){
+        //
+        // }
     }
 
     render() {

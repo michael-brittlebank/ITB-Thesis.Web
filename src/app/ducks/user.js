@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router';
-import { errorHandler } from './helpers';
+import axios from 'axios';
 
 export const types = {
     AUTO_LOGIN: 'AUTH/AUTH_AUTO_LOGIN',
@@ -58,29 +58,27 @@ export const actions = {
     login: function(email, password){
         return function (dispatch) {
             dispatch({type:types.LOGIN_REQUEST});
-            return fetch(process.env.REACT_APP_API_URL+'/login?noredirect=true',{
+            return axios({
                 method: 'POST',
-                body: JSON.stringify({
+                url: process.env.REACT_APP_API_URL+'/users/login',
+                data: {
                     email: email,
                     password: password
-                })
+                }
             })
-                .then(errorHandler)
                 .then((response) => {
-                    console.log('LOGIN', response);
-                    return fetch(process.env.REACT_APP_API_URL+'/profile',{
+                    if(!response.hasOwnProperty('data') || !response.data.hasOwnProperty('sessionToken')){
+                        throw Error('ducks.user.login - invalid response object');
+                    }
+                    return axios({
                         method: 'GET',
-                        credentials: 'include'
+                        url: process.env.REACT_APP_API_URL+'/users/me',
+                        headers: {'Authorization': 'Bearer '+response.data.sessionToken}
                     })
-                        .then(errorHandler)
-                        .then((responseJson)=>{
-                            console.log('PROFILE',responseJson);
+                        .then((response)=>{
                             dispatch({
                                 type: types.LOGIN_SUCCESS,
-                                user: {
-                                    email:email,
-                                    password:password
-                                }
+                                user: response.data
                             });
                             return browserHistory.push('dashboard');
                         });

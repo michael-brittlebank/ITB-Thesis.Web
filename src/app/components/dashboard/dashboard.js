@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
+import usersService from '../../services/users';
 
 class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = props;
-    }
-
     render() {
         return (
             <main id="container-dashboard" className="grid-container">
                 <div className="row" style={{padding: '100px 0'}}>
-                    <div className="col-sm-6 text-white">
+                    <div className="col-sm-6">
                         <p>
-                            Hello {this.state.user.email}.
+                            Hello {usersService.getUserFullName(this.props.user)}.
                         </p>
                         <p>
                             Welcome back.

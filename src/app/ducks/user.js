@@ -13,7 +13,7 @@ export const types = {
 
 let defaultUser = {},
     defaultSessionToken = '',
-    defaultError = null;
+    defaultError = '';
 
 export const initialState = {
     user: defaultUser,
@@ -92,7 +92,7 @@ export const actions = {
                 .catch((error) => {
                     dispatch({
                         type: types.PROFILE_FAILURE,
-                        error: error
+                        error: error.response.status
                     });
                 });
         };
@@ -123,7 +123,7 @@ export const actions = {
                             email:email,
                             password:password
                         },
-                        error: error
+                        error: error.response.status
                     });
                 });
         };

@@ -39,7 +39,13 @@ class Login extends Component {
             //redirect after login
             return browserHistory.push('dashboard');
         }
-        //todo, proper digest of login error
+        switch (nextProps.error){
+            case 401:
+                //todo, open modal
+                alert('unauthorized');
+                break;
+            default:
+        }
     }
 
     render() {

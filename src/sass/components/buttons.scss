@@ -1,0 +1,9 @@
+@import "../base/colors";
+
+.standard-button {
+  background-color: $color-black;
+  color: $color-white;
+  margin: 10px 0;
+  padding: 10px 30px;
+  border: none;
+}

@@ -1,16 +1,16 @@
-# ITB-Thesis.Web #
+# Thesis Web #
 
 
 ## Description ##
 
 
-* This is the web component of my thesis
+* Web component of thesis project
 
 
 ## Software Architecture (High Level) ##
 
 
-* This webapp is built on [Node.js](https://nodejs.org/en/) with a [Handlebars](http://handlebarsjs.com/) templating engine and [Sass](http://sass-lang.com/).  It relies on [Foreman](https://github.com/strongloop/node-foreman) for managing the config values and running the application.
+* This backend-independent webapp is built on [React](https://facebook.github.io/react/) with [Redux](https://github.com/reactjs/redux) for managing view states and [React Router](https://github.com/ReactTraining/react-router) for routing.
 
 
 ## Technical Requirements ##
@@ -20,47 +20,34 @@
 * Sass ~3.4.22
 * JavaScript ES6
 * NPM ~3.10.3 
-* Ruby ~2.3.1
-* Upstart
 
 
 ## How to set up a local environment ##
 
-NPM and Bower install project dependencies (only needed once).  Grunt builds the frontend CSS and JS files
+NPM installs project dependencies (only needed once).  Webpack builds the frontend CSS and JS files and runs a development server
 
 After cloning the repo:
 ```
-gem install foreman sass
-cp .env_example .env
 npm install
-npm install foreman grunt-cli bower nodemon -g
-bower install
-grunt build
 ```
 
 
 ## How to run the project for development after setup ##
 
-Nodemon is used in Procfile_dev so that any changes to the Node.js code are automatically applied and the app is restarted
+Webpack runs a development server and hot reloads components that have been changed in the /src/ folder
 ```
-npm run dev
+npm start
 ```
 The site is served at [http://localhost:3000](http://localhost:3000)
 
-
-## How to develop the frontend JS and CSS files ##
-
-[Grunt](http://gruntjs.com/) monitors changes and recompiles the build files as needed.  [Live Reload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) can be used for automated page refreshes once the builds are complete
-```
-grunt dev
-```
+[React Storybook](https://github.com/storybooks/react-storybook) is available on [http://localhost:9009](http://localhost:9009)
 
 
 ## How to run the project for production ##
 
-[Upstart](http://upstart.ubuntu.com/) is used to daemonize the webapp and keep it alive.  Foreman exports the config values to the appropriate files for use by Upstart.
+This compiles the minified files for production
 ```
-npm run export
-sudo start foreman
+npm run build
 ```
-The site is served at [http://localhost:3000](http://localhost:3000)
+
+[Deploy to S3](https://medium.com/@omgwtfmarc/deploying-create-react-app-to-s3-or-cloudfront-48dae4ce0af#.zgzmaurw0)

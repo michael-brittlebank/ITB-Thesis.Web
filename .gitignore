@@ -1,22 +1,16 @@
-# Runtime data
-pids
-*.pid
-*.seed
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
-#build caches
-.sass-cache/
-.grunt/
+# dependencies
+/node_modules
+/bower_components
 
-#dependencies
-node_modules/
-webapp/bower_components/
+# production
+/build/
+/src/css/
 
-#ide
-.idea/
-*.DS_Store
-
-#compiled Files
-webapp/public/
-
-#config
+# misc
+.DS_Store
 .env
+npm-debug.log*
+.idea/
+

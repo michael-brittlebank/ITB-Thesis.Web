@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import usersService from '../../services/users';
+import userService from '../../services/user';
 
 class Dashboard extends Component {
     render() {
@@ -8,7 +8,7 @@ class Dashboard extends Component {
                 <div className="row" style={{padding: '100px 0'}}>
                     <div className="col-sm-6">
                         <p>
-                            Hello {usersService.getUserFullName(this.props.user)}.
+                            Hello {userService.getUserFullName(this.props.user)}.
                         </p>
                         <p>
                             Welcome back.

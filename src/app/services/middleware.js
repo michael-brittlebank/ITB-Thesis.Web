@@ -5,7 +5,7 @@ import authorizationService from './authorization';
 class MiddlewareService extends Component {
     static isUserLoggedInMiddleware(nextState, replaceState) {
         let currentState = store.getState();
-        if (!authorizationService.isUserLoggedIn(currentState.userState)) {
+        if (!authorizationService.isUserLoggedIn(currentState)) {
             replaceState({ nextPathname: nextState.location.pathname }, '/')
         }
     }

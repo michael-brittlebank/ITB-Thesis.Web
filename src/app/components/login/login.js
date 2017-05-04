@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import store from '../../../store';
-import { actions } from '../../ducks/user';
+import { browserHistory } from 'react-router';
 
 class Login extends Component {
     constructor(props) {
@@ -8,34 +7,18 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
-        //todo, proper validation
-        //todo, proper error messages
-        event.preventDefault();
+    handleSubmit = (event) => {
         let email = this.email.value,
-            password = this.password.value,
-            errors = 0;
-        if (!email || email.length < 1){
-            errors++;
-        }
-        if (!password || password.length < 1) {
-            errors++;
-        }
-        if (errors < 1) {
-            store.dispatch(actions.login(email, password));
-        } else {
-            alert('invalid form');
-        }
-    }
+            password = this.password.value;
+        this.props.handleSubmit(event, email, password);
+    };
 
     componentWillReceiveProps(nextProps){
-        console.log('recieved proprs',nextProps);
-        if (nextProps.error){
-            //todo, proper digest of login error
+        if (nextProps.isLoggedIn){
+            //redirect after login
+            return browserHistory.push('dashboard');
         }
-        // if (usersService.){
-        //
-        // }
+        //todo, proper digest of login error
     }
 
     render() {

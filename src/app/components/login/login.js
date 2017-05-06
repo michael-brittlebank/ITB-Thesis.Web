@@ -59,9 +59,17 @@ class Login extends Component {
                     <section className="col-sm-6">
                         <form onSubmit={this.handleSubmit} className="standard-form">
                             <label htmlFor="email">Email Address</label>
-                            <input type="email" id="email" defaultValue={this.props.user.email} ref={(input) => this.email = input} className={""+(this.state.emailError ? 'error' : '')}/>
+                            <input type="email"
+                                   id="email"
+                                   defaultValue={this.props.user.email}
+                                   ref={(input) => this.email = input}
+                                   className={""+(this.state.emailError ? 'error' : '')}/>
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" defaultValue={this.props.user.password} ref={(input) => this.password = input} className={""+(this.state.passwordError ? 'error' : '')}/>
+                            <input type="password"
+                                   id="password"
+                                   defaultValue={this.props.user.password}
+                                   ref={(input) => this.password = input}
+                                   className={""+(this.state.passwordError ? 'error' : '')}/>
                             <button type="submit" value="Submit" className="standard-button">Submit</button>
                         </form>
                     </section>

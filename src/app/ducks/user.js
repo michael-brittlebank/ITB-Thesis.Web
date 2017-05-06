@@ -26,11 +26,6 @@ export const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case types.PROFILE_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: defaultError
-            };
         case types.LOGIN_REQUEST:
             return {
                 ...state,

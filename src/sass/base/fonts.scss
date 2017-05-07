@@ -26,6 +26,12 @@ $global-font-raleway-thin: unquote('RalewayThin'+$sanserifDefault);
 }
 $global-font-proza-libre: unquote('Proza Libre'+$sanserifDefault);
 
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/FontAwesome/fontawesome-webfont.woff2') format('woff2'), url('../fonts/FontAwesome/fontawesome-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal
+}
 $global-font-font-awesome: 'FontAwesome';
 
 //extensible classes

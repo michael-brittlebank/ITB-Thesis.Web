@@ -123,5 +123,8 @@ export const actions = {
                 });
         };
     },
-    logout: () => ({ type: types.LOGOUT })
+    logout: () => ({ type: types.LOGOUT }),
+    forgotPasswordRequest: function(email){
+        console.log('forgot todo');
+    }
 };

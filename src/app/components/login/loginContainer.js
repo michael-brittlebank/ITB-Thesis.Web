@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        handleSubmit: (event, email, password) => {
+        handleLoginSubmit: (email, password) => {
             store.dispatch(actions.login(email, password));
         }
     })

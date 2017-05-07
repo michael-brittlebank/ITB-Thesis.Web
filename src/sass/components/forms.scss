@@ -6,10 +6,19 @@
   }
 
   input, textarea {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     border: 1px solid $color-font-black;
     &.error {
       border-color: red;
     }
   }
+}
+
+.input-error-message {
+  font-size: 0.75rem;
+  color: red;
+}
+
+.form-error-message {
+  color: red;
 }

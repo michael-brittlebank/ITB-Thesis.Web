@@ -8,10 +8,15 @@ export const types = {
     PROFILE_REQUEST: 'USER/PROFILE_REQUEST',
     PROFILE_SUCCESS: 'USER/PROFILE_SUCCESS',
     PROFILE_FAILURE: 'USER/PROFILE_FAILURE',
+    FORGOT_PASSWORD_REQUEST: 'USER/FORGOT_PASSWORD_REQUEST',
+    FORGOT_PASSWORD_SUCCESS: 'USER/FORGOT_PASSWORD_SUCCESS',
+    FORGOT_PASSWORD_FAILURE: 'USER/FORGOT_PASSWORD_FAILURE',
+    FORGOT_PASSWORD_RESET: 'USER/FORGOT_PASSWORD_RESET',
     LOGOUT: 'USER/LOGOUT'
 };
 
 let defaultUser = {},
+    defaultForgotPassword = {},
     defaultSessionToken = '',
     defaultError = '';
 
@@ -19,12 +24,14 @@ export const initialState = {
     user: defaultUser,
     sessionToken: defaultSessionToken,
     isLoading: false,
-    error: defaultError
+    error: defaultError,
+    forgotPassword: defaultForgotPassword
 };
 
 //reducers
 export default (state = initialState, action) => {
     switch (action.type) {
+        case types.FORGOT_PASSWORD_REQUEST:
         case types.PROFILE_REQUEST:
         case types.LOGIN_REQUEST:
             return {
@@ -62,6 +69,28 @@ export default (state = initialState, action) => {
                 user: defaultUser,
                 sessionToken: defaultSessionToken
             };
+        case types.FORGOT_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                forgotPassword: {
+                    success: true
+                }
+            };
+        case types.FORGOT_PASSWORD_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                forgotPassword: {
+                    success: false,
+                    email: action.email
+                }
+            };
+        case types.FORGOT_PASSWORD_RESET:
+            return {
+                ...state,
+                forgotPassword: defaultForgotPassword
+            };
         default:
             return state
     }
@@ -75,7 +104,7 @@ export const actions = {
                 sessionToken = currentState.userState.sessionToken;
             return axios({
                 method: 'GET',
-                url: process.env.REACT_APP_API_URL + '/users/me',
+                url: process.env.REACT_APP_API_URL + '/user/me',
                 headers: {'Authorization': 'Bearer ' + sessionToken}
             })
                 .then((response) => {
@@ -97,7 +126,7 @@ export const actions = {
             dispatch({type:types.LOGIN_REQUEST});
             return axios({
                 method: 'POST',
-                url: process.env.REACT_APP_API_URL+'/users/login',
+                url: process.env.REACT_APP_API_URL+'/user/login',
                 data: {
                     email: email,
                     password: password
@@ -125,6 +154,31 @@ export const actions = {
     },
     logout: () => ({ type: types.LOGOUT }),
     forgotPasswordRequest: function(email){
-        console.log('forgot todo');
+        return function (dispatch) {
+            dispatch({type: types.FORGOT_PASSWORD_REQUEST});
+            return axios({
+                method: 'POST',
+                url: process.env.REACT_APP_API_URL + '/user/forgot-password',
+                data: {
+                    email: email
+                }
+            })
+                .then((response) => {
+                    dispatch({
+                        type: types.FORGOT_PASSWORD_SUCCESS
+                    });
+                })
+                .catch((error) => {
+                    dispatch({
+                        type: types.FORGOT_PASSWORD_FAILURE,
+                        email: email
+                    });
+                });
+        };
+    },
+    forgotPasswordReset: function(){
+        return function (dispatch) {
+            dispatch({type: types.FORGOT_PASSWORD_RESET});
+        }
     }
 };

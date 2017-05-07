@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import ForgotPasswordModalContainer from './forgotPassword/forgotPasswordModalContainer';
 
 import validationService from '../../services/validation';
-import errorService from '../../services/errors';
+import formService from '../../services/form';
 
 class Login extends Component {
     constructor(props) {
@@ -31,12 +31,15 @@ class Login extends Component {
         }
     };
 
+    handleModalOpen = (event) => {
+        this.props.resetForgotPasswordModal();
+    };
+
     componentWillReceiveProps(nextProps){
         if (nextProps.isLoggedIn){
             //redirect after login
             return browserHistory.push('dashboard');
         }
-        console.log('next props', nextProps.error, !!nextProps.error);
         this.setState({
             submissionError: !!nextProps.error
         });
@@ -60,7 +63,7 @@ class Login extends Component {
                                        defaultValue={this.props.user.email}
                                        ref={(input) => this.email = input}/>
                             </label>
-                            {errorService.getInputErrorMessage(this.state.emailError,errorService.errorMessages.email)}
+                            {formService.getInputErrorMessage(this.state.emailError,formService.errorMessages.email)}
                             <label className={""+(this.state.passwordError ? 'error' : '')}>
                                 Password
                                 <input type="password"
@@ -68,12 +71,12 @@ class Login extends Component {
                                        defaultValue={this.props.user.password}
                                        ref={(input) => this.password = input}/>
                             </label>
-                            {errorService.getInputErrorMessage(this.state.passwordError,errorService.errorMessages.password)}
+                            {formService.getInputErrorMessage(this.state.passwordError,formService.errorMessages.password)}
                             <button type="submit" value="Submit" className="standard-button">Submit</button>
                             <p className="text-center">
-                                <a href="#m--forgot-password">Forgot Password?</a>
+                                <a onClick={this.handleModalOpen} href="#m--forgot-password">Forgot Password?</a>
                             </p>
-                            {errorService.getFormErrorMessage(this.state.submissionError,'Login failed.  Please double-check email and password')}
+                            {formService.getFormErrorMessage(this.state.submissionError,'Login failed.  Please double-check email and password')}
                         </form>
                     </section>
                 </div>

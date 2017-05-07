@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ErrorService extends Component {
+class FormService extends Component {
 
     static errorMessages = {
         email: 'Invalid Email',
@@ -23,6 +23,15 @@ class ErrorService extends Component {
         );
     };
 
+    static getFormSuccessMessage = function(showMessage, messageText){
+        return (
+            <p className="form-success-message">
+                {showMessage?messageText:String.fromCharCode(160)}
+            </p>
+        );
+    };
+
+
 }
 
-export default ErrorService;
+export default FormService;

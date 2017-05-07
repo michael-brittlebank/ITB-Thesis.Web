@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
     return({
         handleLoginSubmit: (email, password) => {
             store.dispatch(actions.login(email, password));
+        },
+        resetForgotPasswordModal: () => {
+            store.dispatch(actions.forgotPasswordReset());
         }
     })
 };

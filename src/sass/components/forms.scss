@@ -34,19 +34,41 @@
   }
 }
 
-@mixin standard-error-message {
-  color: red;
-  margin: 0;
+@mixin standard-message {
+  margin-bottom: 0;
   text-align: center;
 }
 
-.input-error-message {
+@mixin standard-error-message {
+  color: red;
+}
+
+@mixin standard-success-message {
+  color: green;
+}
+
+@mixin standard-input-message {
   font-size: 0.75rem;
+  @include standard-message;
+}
+
+@mixin standard-form-message {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  @include standard-message;
+}
+
+.input-error-message {
+  @include standard-input-message;
   @include standard-error-message;
 }
 
 .form-error-message {
-  margin-top: 10px;
-  font-size: 0.9rem;
+  @include standard-form-message;
   @include standard-error-message;
+}
+
+.form-success-message {
+  @include standard-form-message;
+  @include standard-success-message;
 }

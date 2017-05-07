@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 
 import validationService from '../../../services/validation';
-import errorService from '../../../services/errors';
+import formService from '../../../services/form';
 
 class ForgotPasswordModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            emailError: false
+            emailError: false,
+            submissionError: false,
+            submissionSuccess: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -22,6 +24,27 @@ class ForgotPasswordModal extends Component {
             this.props.handleForgotPasswordSubmit(email);
         }
     };
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            submissionError: nextProps.forgotPassword.hasOwnProperty('success') && nextProps.forgotPassword.success === false,
+            submissionSuccess: nextProps.forgotPassword.hasOwnProperty('success') && nextProps.forgotPassword.success === true,
+        });
+    }
+
+    renderFormMessages(){
+        if(this.props.forgotPassword.hasOwnProperty('success')){
+            if (this.props.forgotPassword.success === false){
+                return formService.getFormErrorMessage(this.state.submissionError,'Forgot Password request failed.  Please try again later');
+            } else {
+                //reset form
+                this.email.value = '';
+                return formService.getFormSuccessMessage(this.state.submissionSuccess,'An email has been sent with instructions for resetting your password');
+            }
+        } else {
+            return formService.getFormErrorMessage(false,'');
+        }
+    }
 
     render() {
         return (
@@ -40,12 +63,12 @@ class ForgotPasswordModal extends Component {
                                 Email address
                                 <input type="email"
                                        id="forgot-password-email"
-                                       defaultValue={this.props.user.email}
+                                       defaultValue={this.props.forgotPassword.email}
                                        ref={(input) => this.email = input}/>
                             </label>
-                            {errorService.getInputErrorMessage(this.state.emailError,errorService.errorMessages.email)}
+                            {formService.getInputErrorMessage(this.state.emailError,formService.errorMessages.email)}
                             <button type="submit" value="Submit" className="standard-button">Submit</button>
-                            {errorService.getFormErrorMessage(this.state.submissionError,'Forgot Password request failed.  Please try again later')}
+                            {this.renderFormMessages()}
                         </form>
                     </div>
                 </div>

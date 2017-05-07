@@ -23,7 +23,8 @@ class Login extends Component {
             password = this.password.value;
         this.setState({
             emailError: !validationService.isValidEmail(email),
-            passwordError: !validationService.isValidPassword(password)
+            passwordError: !validationService.isValidPassword(password),
+            submissionError: false
         });
         if (validationService.isValidEmail(email) && validationService.isValidPassword(password)) {
             this.props.handleLoginSubmit(email, password);
@@ -35,8 +36,9 @@ class Login extends Component {
             //redirect after login
             return browserHistory.push('dashboard');
         }
+        console.log('next props', nextProps.error, !!nextProps.error);
         this.setState({
-            submissionError: nextProps.error && nextProps.error.length > 0
+            submissionError: !!nextProps.error
         });
     }
 
@@ -49,26 +51,29 @@ class Login extends Component {
                         <p>Fully featured interactive tool for workouts </p>
                     </section>
                     <section className="col-sm-6">
+                        <h1>Login</h1>
                         <form onSubmit={this.handleSubmit} className="standard-form">
-                            <label htmlFor="email">Email Address</label>
-                            <input type="email"
-                                   id="email"
-                                   defaultValue={this.props.user.email}
-                                   ref={(input) => this.email = input}
-                                   className={""+(this.state.emailError ? 'error' : '')}/>
+                            <label className={""+(this.state.emailError ? 'error' : '')}>
+                                Email Address
+                                <input type="email"
+                                       id="email"
+                                       defaultValue={this.props.user.email}
+                                       ref={(input) => this.email = input}/>
+                            </label>
                             {errorService.getInputErrorMessage(this.state.emailError,errorService.errorMessages.email)}
-                            <label htmlFor="password">Password</label>
-                            <input type="password"
-                                   id="password"
-                                   defaultValue={this.props.user.password}
-                                   ref={(input) => this.password = input}
-                                   className={""+(this.state.passwordError ? 'error' : '')}/>
+                            <label className={""+(this.state.passwordError ? 'error' : '')}>
+                                Password
+                                <input type="password"
+                                       id="password"
+                                       defaultValue={this.props.user.password}
+                                       ref={(input) => this.password = input}/>
+                            </label>
                             {errorService.getInputErrorMessage(this.state.passwordError,errorService.errorMessages.password)}
                             <button type="submit" value="Submit" className="standard-button">Submit</button>
-                            {errorService.getFormErrorMessage(this.state.submissionError,'Login failed.  Please double-check email and password')}
-                            <p>
+                            <p className="text-center">
                                 <a href="#m--forgot-password">Forgot Password?</a>
                             </p>
+                            {errorService.getFormErrorMessage(this.state.submissionError,'Login failed.  Please double-check email and password')}
                         </form>
                     </section>
                 </div>

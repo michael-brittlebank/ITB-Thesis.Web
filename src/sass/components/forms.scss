@@ -1,24 +1,52 @@
 @import "../base/colors";
+@import "../base/fonts";
 
 .standard-form {
   label, input, textarea {
     display: block;
   }
 
-  input, textarea {
+  input {
+    width: calc(100% - 10px);
     margin-bottom: 5px;
     border: 1px solid $color-font-black;
-    &.error {
-      border-color: red;
-    }
+    padding: 5px;
+    border-radius: 5px;
   }
+
+}
+
+.error {
+  position: relative;
+  input {
+    border-color: red;
+  }
+  &:after {
+    content: "\f06a";
+    font-family: $global-font-font-awesome;
+    top: 12px;
+    right: -8px;
+    height: 18px;
+    width: 14px;
+    position: absolute;
+    color: red;
+    background-color: white;
+  }
+}
+
+@mixin standard-error-message {
+  color: red;
+  margin: 0;
+  text-align: center;
 }
 
 .input-error-message {
   font-size: 0.75rem;
-  color: red;
+  @include standard-error-message;
 }
 
 .form-error-message {
-  color: red;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  @include standard-error-message;
 }

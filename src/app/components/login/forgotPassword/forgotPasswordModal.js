@@ -36,12 +36,13 @@ class ForgotPasswordModal extends Component {
                     <div className="modal-content">
                         <h2 id="label-fade">Forgot Password?</h2>
                         <form onSubmit={this.handleSubmit} className="standard-form">
-                            <label htmlFor="forgot-password-email">Email address</label>
-                            <input type="email"
-                                   id="forgot-password-email"
-                                   defaultValue={this.props.user.email}
-                                   ref={(input) => this.email = input}
-                                   className={""+(this.state.emailError ? 'error' : '')}/>
+                            <label className={""+(this.state.emailError ? 'error' : '')}>
+                                Email address
+                                <input type="email"
+                                       id="forgot-password-email"
+                                       defaultValue={this.props.user.email}
+                                       ref={(input) => this.email = input}/>
+                            </label>
                             {errorService.getInputErrorMessage(this.state.emailError,errorService.errorMessages.email)}
                             <button type="submit" value="Submit" className="standard-button">Submit</button>
                             {errorService.getFormErrorMessage(this.state.submissionError,'Forgot Password request failed.  Please try again later')}

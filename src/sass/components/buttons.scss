@@ -1,9 +1,17 @@
 @import "../base/colors";
+@import "../base/mixins";
 
 .standard-button {
+  border: 2px solid $color-black;
   background-color: $color-black;
   color: $color-white;
   margin: 10px 0;
   padding: 10px 30px;
-  border: none;
+  cursor: pointer;
+  outline: none;
+  @include transition-raw("background-color 300ms ease-out 0s,color 300ms ease-out 0s");
+  &:hover {
+    color: $color-black;
+    background-color: $color-white;
+  }
 }

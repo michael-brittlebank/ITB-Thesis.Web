@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dashboard from './dashboard';
 
@@ -8,12 +7,13 @@ const mapStateToProps = function(store) {
     };
 };
 
-class DashboardContainer extends Component {
-    render() {
-        return (
-            <Dashboard user={this.props.user}/>
-        );
-    }
-}
+const mapDispatchToProps = (dispatch) => {
+    return({
 
-export default connect(mapStateToProps)(DashboardContainer);
+    })
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Dashboard);

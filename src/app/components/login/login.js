@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
+import ForgotPasswordModal from './forgotPasswordModal';
+
 import validationService from '../../services/validation';
 
 class Login extends Component {
@@ -71,9 +73,13 @@ class Login extends Component {
                                    ref={(input) => this.password = input}
                                    className={""+(this.state.passwordError ? 'error' : '')}/>
                             <button type="submit" value="Submit" className="standard-button">Submit</button>
+                            <p>
+                                <a href="#m--forgot-password">Forgot Password?</a>
+                            </p>
                         </form>
                     </section>
                 </div>
+                <ForgotPasswordModal/>
             </main>
         );
     }

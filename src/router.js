@@ -11,6 +11,7 @@ import MainLayout from './app/layouts/main';
 // Views
 import LoginContainer from './app/components/login/loginContainer';
 import DashboardContainer from './app/components/dashboard/dashboardContainer';
+import NotFound from './app/components/shared/notFound';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -22,6 +23,8 @@ export default (
             <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
                 <Route path="dashboard" name="dashboard" component={DashboardContainer}/>
             </Route>
+            //misc
+            <Route path='*' component={NotFound} />
         </Router>
     </Provider>
 );

@@ -1,5 +1,15 @@
 //core
 //----------------------
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-menu-active-state;
+  box-shadow: 0 0 10px $color-box-shadow;
+  z-index: 999;
+}
 
+.header-link {
+  padding: 10px;
 }

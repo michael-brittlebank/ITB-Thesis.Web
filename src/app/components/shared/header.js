@@ -32,18 +32,23 @@ class Header extends Component {
 
     render() {
         return (
-            <header className="grid-container">
-                <nav className="row">
+            <header>
+                <nav className="grid-container row">
                     <div className="col-sm-8">
-                        <Link to="/dashboard">
-                            Dashboard
-                        </Link>
+                        <ul className="standard-menu">
+                            <li>
+                                <Link to="/dashboard" className="header-link">
+                                    Dashboard
+                                </Link>
+                            </li>
+                        </ul>
                     </div>
                     <div className="col-sm-4 text-right">
                         <ul className="standard-menu">
                             <li>
-                                <div className="i--icon-user">&nbsp;</div>
-                                <p>Profile</p>
+                                <Link to="/profile" className="header-link">
+                                    Profile
+                                </Link>
                                 <ul className="sub-menu right">
                                     {this.renderAdminLink()}
                                     <li onClick={this.handleLogout}>

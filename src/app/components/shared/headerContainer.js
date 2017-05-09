@@ -1,5 +1,7 @@
 import {connect} from 'react-redux';
 
+import { actions as userActions } from '../../ducks/user';
+
 import Header from './header';
 
 const mapStateToProps = (state) => {
@@ -9,7 +11,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return({
-
+        handleLogoutSubmit: () => {
+            dispatch(userActions.logout());
+        }
     })
 };
 

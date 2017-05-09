@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../../store';
+import { browserHistory } from 'react-router';
 
 export const types = {
     LOGIN_REQUEST: 'USER/LOGIN_REQUEST',
@@ -42,6 +43,7 @@ export default (state = initialState, action) => {
         case types.LOGIN_SUCCESS:
             return {
                 ...state,
+                isLoading: false,
                 sessionToken: action.sessionToken
             };
         case types.PROFILE_SUCCESS:
@@ -62,12 +64,6 @@ export default (state = initialState, action) => {
                 isLoading: false,
                 user: action.user,
                 error: action.error
-            };
-        case types.LOGOUT:
-            return {
-                ...state,
-                user: defaultUser,
-                sessionToken: defaultSessionToken
             };
         case types.FORGOT_PASSWORD_SUCCESS:
             return {
@@ -91,6 +87,8 @@ export default (state = initialState, action) => {
                 ...state,
                 forgotPassword: defaultForgotPassword
             };
+        case types.LOGOUT:
+            return initialState;
         default:
             return state
     }
@@ -152,7 +150,13 @@ export const actions = {
                 });
         };
     },
-    logout: () => ({ type: types.LOGOUT }),
+    logout: function(){
+        return function (dispatch) {
+            dispatch({type: types.LOGOUT});
+            //redirect to login
+            return browserHistory.push('/');
+        };
+    },
     forgotPasswordRequest: function(email){
         return function (dispatch) {
             dispatch({type: types.FORGOT_PASSWORD_REQUEST});

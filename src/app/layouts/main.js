@@ -1,7 +1,7 @@
 import React from 'react';
 
-import HeaderContainer from '../components/shared/header';
-import FooterContainer from '../components/shared/footer';
+import HeaderContainer from '../components/shared/headerContainer';
+import FooterContainer from '../components/shared/footerContainer';
 
 const MainLayout = React.createClass({
     render: function() {

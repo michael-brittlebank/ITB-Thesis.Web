@@ -26,6 +26,7 @@ export default (
             <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
                 <Route path="/dashboard" name="dashboard" component={DashboardContainer}/>
                 <Route path="/profile" name="profile" component={ProfileContainer}/>
+                //workouts
                 <Route path="/workout" name="workout" component={WorkoutContainer}/>
                 <Route path="/workouts" name="workout-library" component={WorkoutLibraryContainer}/>
                 //misc

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory, IndexLink } from 'react-router';
 
 import validationService from '../../services/validation';
 import formService from '../../services/form';
@@ -45,9 +45,9 @@ class Register extends Component {
                 <div className="row">
                     <section className="col-sm-12 col-md-6">
                         <h1>Register</h1>
-                        <Link to="/">
+                        <IndexLink to="/">
                             &lt; Login
-                        </Link>
+                        </IndexLink>
                         <form onSubmit={this.handleRegisterSubmit} className="standard-form">
                             <label className={""+(this.state.emailError ? 'error' : '')}>
                                 Email Address

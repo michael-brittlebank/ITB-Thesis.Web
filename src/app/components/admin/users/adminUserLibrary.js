@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 
-class AdminDashboard extends Component {
+class AdminUserLibrary extends Component {
     render() {
         return (
             <main id="container-admin-dashboard" className="grid-container">
                 <div className="row">
                     <div className="col-sm-6">
                         <p>
-                            Admin
+                            user library
                         </p>
-                        <Link to="admin/users">Users library</Link>
-                        <Link to="admin/exercises">Exercise library</Link>
                     </div>
                 </div>
             </main>
@@ -19,4 +16,4 @@ class AdminDashboard extends Component {
     }
 }
 
-export default AdminDashboard;
+export default AdminUserLibrary;

@@ -19,12 +19,12 @@ class Dashboard extends Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-6">
-                        <Link to="/workout">
+                        <Link to="workout">
                             <button className="standard-button" type="button">Start Workout</button>
                         </Link>
                     </div>
                     <div className="col-sm-6">
-                        <Link to="/profile">
+                        <Link to="profile">
                             <button className="standard-button" type="button">My Profile</button>
                         </Link>
                     </div>

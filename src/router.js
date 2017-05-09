@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import store from './store';
 import MiddlewareService from './app/services/middleware';
@@ -17,6 +17,8 @@ import ProfileContainer from './app/components/profile/profileContainer';
 import WorkoutLibraryContainer from './app/components/workouts/workoutLibrary';
 import RegisterContainer from './app/components/register/registerContainer';
 import AdminDashboardContainer from './app/components/admin/adminDashboardContainer';
+import AdminExerciseLibraryContainer from './app/components/admin/exercises/adminExerciseLibraryContainer';
+import AdminUserLibraryContainer from './app/components/admin/users/adminUserLibraryContainer';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -24,21 +26,25 @@ const history = syncHistoryWithStore(browserHistory, store);
 export default (
     <Provider store={store}>
         <Router history={history}>
-            <Route path="/" name="login" component={LoginContainer} />
-            <Route path="/register" name="register" component={RegisterContainer}/>
             {/*logged in*/}
             <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
-                <Route path="/dashboard" name="dashboard" component={DashboardContainer}/>
-                <Route path="/profile" name="profile" component={ProfileContainer}/>
+                <Route path="dashboard" component={DashboardContainer}/>
+                <Route path="profile" component={ProfileContainer}/>
                 {/*workouts*/}
-                <Route path="/workout" name="workout" component={WorkoutContainer}/>
-                <Route path="/workouts" name="workout-library" component={WorkoutLibraryContainer}/>
+                <Route path="workout" component={WorkoutContainer}/>
+                <Route path="workouts" component={WorkoutLibraryContainer}/>
             </Route>
             {/*admin*/}
-            <Route component={MainLayout} onEnter={MiddlewareService.isUserAdmin}>
-                <Route path="/admin" name="admin-dashboard" component={AdminDashboardContainer}/>
+            <Route path="admin" component={MainLayout} onEnter={MiddlewareService.isUserAdmin}>
+                <IndexRoute component={AdminDashboardContainer} />
+                <Route path="exercises" component={AdminExerciseLibraryContainer}/>
+                <Route path="users" component={AdminUserLibraryContainer}/>
             </Route>
             {/*misc*/}
+            <Route path="/">
+                <IndexRoute component={LoginContainer} />
+                <Route path="register" component={RegisterContainer}/>
+            </Route>
             <Route component={MainLayout}>
                 <Route path='*' component={NotFound} />
             </Route>

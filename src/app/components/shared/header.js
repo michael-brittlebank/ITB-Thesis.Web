@@ -13,6 +13,23 @@ class Header extends Component {
         this.props.handleLogoutSubmit();
     };
 
+    //renders
+    //-----------------------------
+    renderAdminLink(){
+        //admins only
+        if (this.props.isAdmin){
+            return (
+                <li>
+                    <Link to="/admin">
+                        Admin
+                    </Link>
+                </li>
+            );
+        } else {
+            return null;
+        }
+    }
+
     render() {
         return (
             <header className="grid-container">
@@ -28,6 +45,7 @@ class Header extends Component {
                                 <div className="i--icon-user">&nbsp;</div>
                                 <p>Profile</p>
                                 <ul className="sub-menu right">
+                                    {this.renderAdminLink()}
                                     <li onClick={this.handleLogout}>
                                         <a>Logout</a>
                                     </li>

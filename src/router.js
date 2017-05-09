@@ -16,6 +16,7 @@ import WorkoutContainer from './app/components/workouts/workoutContainer';
 import ProfileContainer from './app/components/profile/profileContainer';
 import WorkoutLibraryContainer from './app/components/workouts/workoutLibrary';
 import RegisterContainer from './app/components/register/registerContainer';
+import AdminDashboardContainer from './app/components/admin/adminDashboardContainer';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -32,7 +33,13 @@ export default (
                 {/*workouts*/}
                 <Route path="/workout" name="workout" component={WorkoutContainer}/>
                 <Route path="/workouts" name="workout-library" component={WorkoutLibraryContainer}/>
-                {/*misc*/}
+            </Route>
+            {/*admin*/}
+            <Route component={MainLayout} onEnter={MiddlewareService.isUserAdmin}>
+                <Route path="/admin" name="admin-dashboard" component={AdminDashboardContainer}/>
+            </Route>
+            {/*misc*/}
+            <Route component={MainLayout}>
                 <Route path='*' component={NotFound} />
             </Route>
         </Router>

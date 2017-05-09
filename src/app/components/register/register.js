@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
-
-import ForgotPasswordModalContainer from './forgotPassword/forgotPasswordModalContainer';
+import { browserHistory } from 'react-router';
 
 import validationService from '../../services/validation';
 import formService from '../../services/form';
 
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,10 +12,10 @@ class Login extends Component {
             passwordError: false,
             submissionError: false
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     }
 
-    handleSubmit = (event) => {
+    handleRegisterSubmit = (event) => {
         event.preventDefault();
         let email = this.email.value,
             password = this.password.value;
@@ -27,12 +25,8 @@ class Login extends Component {
             submissionError: false
         });
         if (validationService.isValidEmail(email) && validationService.isValidPassword(password)) {
-            this.props.handleLoginSubmit(email, password);
+            this.props.handleRegisterSubmit(email, password);
         }
-    };
-
-    handleModalOpen = (event) => {
-        this.props.resetForgotPasswordModal();
     };
 
     componentWillReceiveProps(nextProps){
@@ -49,13 +43,9 @@ class Login extends Component {
         return (
             <main id="container-login" className="grid-container">
                 <div className="row">
-                    <section className="col-sm-12">
-                        <h1>Workouts</h1>
-                        <p>Fully featured interactive tool for workouts </p>
-                    </section>
                     <section className="col-sm-12 col-md-6">
-                        <h3>Login</h3>
-                        <form onSubmit={this.handleSubmit} className="standard-form">
+                        <h1>Register</h1>
+                        <form onSubmit={this.handleRegisterSubmit} className="standard-form">
                             <label className={""+(this.state.emailError ? 'error' : '')}>
                                 Email Address
                                 <input type="email"
@@ -72,23 +62,14 @@ class Login extends Component {
                                        ref={(input) => this.password = input}/>
                             </label>
                             {formService.getInputErrorMessage(this.state.passwordError,formService.errorMessages.password)}
-                            <button type="submit" value="Submit" className="standard-button">Login</button>
-                            <p className="text-center">
-                                <a onClick={this.handleModalOpen} href="#m--forgot-password">Forgot Password?</a>
-                            </p>
-                            <p className="text-center">
-                                <Link to="/register">
-                                    Don't have an account? Sign Up!
-                                </Link>
-                            </p>
+                            <button type="submit" value="Submit" className="standard-button">Register</button>
                             {formService.getFormErrorMessage(this.state.submissionError,'Login failed.  Please double-check email and password')}
                         </form>
                     </section>
                 </div>
-                <ForgotPasswordModalContainer/>
             </main>
         );
     }
 }
 
-export default Login;
+export default Register;

@@ -7,7 +7,7 @@ class Header extends Component {
             <header className="grid-container">
                 <nav className="row text-white">
                     <div className="col-sm-8">
-                        <Link to="/dashboard" activeClassName="active">
+                        <Link to="/dashboard">
                             Dashboard
                         </Link>
                     </div>

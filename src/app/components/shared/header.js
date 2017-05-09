@@ -27,7 +27,7 @@ class Header extends Component {
                             <li>
                                 <div className="i--icon-user">&nbsp;</div>
                                 <p>Profile</p>
-                                <ul className="sub-menu">
+                                <ul className="sub-menu right">
                                     <li onClick={this.handleLogout}>
                                         <a>Logout</a>
                                     </li>

@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-const Header = React.createClass({
-    render: function() {
+class Header extends Component {
+    render() {
         return (
             <header className="grid-container">
                 <nav className="row text-white">
                     <div className="col-sm-8">
                         <Link to="/dashboard" activeClassName="active">
-                           Dashboard
+                            Dashboard
                         </Link>
                     </div>
                     <div className="col-sm-4 text-right">
@@ -19,6 +19,6 @@ const Header = React.createClass({
             </header>
         );
     }
-});
+}
 
 export default Header;

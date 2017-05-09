@@ -1,6 +1,5 @@
 import {connect} from 'react-redux';
 
-import store from '../../../store';
 import { actions } from '../../ducks/user';
 import HelperService from '../../services/helper';
 import authorizationService from '../../services/authorization';
@@ -20,10 +19,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return({
         handleLoginSubmit: (email, password) => {
-            store.dispatch(actions.login(email, password));
+            dispatch(actions.login(email, password));
         },
         resetForgotPasswordModal: () => {
-            store.dispatch(actions.forgotPasswordReset());
+            dispatch(actions.forgotPasswordReset());
         }
     })
 };

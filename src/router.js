@@ -12,6 +12,8 @@ import MainLayout from './app/layouts/main';
 import LoginContainer from './app/components/login/loginContainer';
 import DashboardContainer from './app/components/dashboard/dashboardContainer';
 import NotFound from './app/components/shared/notFound';
+import WorkoutContainer from './app/components/workouts/workoutContainer';
+import ProfileContainer from './app/components/profile/profileContainer';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -21,10 +23,12 @@ export default (
         <Router history={history}>
             <Route path="/" name="login" component={LoginContainer} />
             <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
-                <Route path="dashboard" name="dashboard" component={DashboardContainer}/>
+                <Route path="/dashboard" name="dashboard" component={DashboardContainer}/>
+                <Route path="/profile" name="dashboard" component={ProfileContainer}/>
+                <Route path="/workout" name="dashboard" component={WorkoutContainer}/>
+                //misc
+                <Route path='*' component={NotFound} />
             </Route>
-            //misc
-            <Route path='*' component={NotFound} />
         </Router>
     </Provider>
 );

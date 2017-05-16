@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
+import classNames from 'classnames';
 
 import ForgotPasswordModalContainer from './forgotPassword/forgotPasswordModalContainer';
 
@@ -56,7 +57,11 @@ class Login extends Component {
                     <section className="col-sm-12 col-md-6">
                         <h3>Login</h3>
                         <form onSubmit={this.handleSubmit} className="standard-form">
-                            <label className={""+(this.state.emailError ? 'error' : '')}>
+                            <label className={
+                                classNames({
+                                    'error': this.state.emailError
+                                })
+                            }>
                                 Email Address
                                 <input type="email"
                                        id="email"
@@ -64,7 +69,11 @@ class Login extends Component {
                                        ref={(input) => this.email = input}/>
                             </label>
                             {formService.getInputErrorMessage(this.state.emailError,formService.errorMessages.email)}
-                            <label className={""+(this.state.passwordError ? 'error' : '')}>
+                            <label className={
+                                classNames({
+                                    'error': this.state.passwordError
+                                })
+                            }>
                                 Password
                                 <input type="password"
                                        id="password"

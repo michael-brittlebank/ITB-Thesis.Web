@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory, IndexLink } from 'react-router';
+import classNames from 'classnames';
 
 import validationService from '../../services/validation';
 import formService from '../../services/form';
@@ -49,7 +50,11 @@ class Register extends Component {
                             &lt; Login
                         </IndexLink>
                         <form onSubmit={this.handleRegisterSubmit} className="standard-form">
-                            <label className={""+(this.state.emailError ? 'error' : '')}>
+                            <label className={
+                                classNames({
+                                    'error': this.state.emailError
+                                })
+                            }>
                                 Email Address
                                 <input type="email"
                                        id="email"
@@ -57,7 +62,11 @@ class Register extends Component {
                                        ref={(input) => this.email = input}/>
                             </label>
                             {formService.getInputErrorMessage(this.state.emailError,formService.errorMessages.email)}
-                            <label className={""+(this.state.passwordError ? 'error' : '')}>
+                            <label className={
+                                classNames({
+                                    'error': this.state.passwordError
+                                })
+                            }>
                                 Password
                                 <input type="password"
                                        id="password"

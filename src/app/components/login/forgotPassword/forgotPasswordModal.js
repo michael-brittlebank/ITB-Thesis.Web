@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 import validationService from '../../../services/validation';
 import formService from '../../../services/form';
@@ -59,7 +60,11 @@ class ForgotPasswordModal extends Component {
                     <div className="modal-content">
                         <h2 id="label-fade">Forgot Password?</h2>
                         <form onSubmit={this.handleSubmit} className="standard-form">
-                            <label className={""+(this.state.emailError ? 'error' : '')}>
+                            <label className={
+                                classNames({
+                                    'error': this.state.emailError
+                                })
+                            }>
                                 Email address
                                 <input type="email"
                                        id="forgot-password-email"

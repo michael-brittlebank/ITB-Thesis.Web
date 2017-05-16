@@ -1,0 +1,44 @@
+@import "fonts";
+@import "colors";
+@import "../abstract/mixins";
+@import "../abstract/media-queries";
+
+//main styles
+//-----------------------------
+body {
+  //header placeholder
+  padding-top: 75px;
+  font-family: $global-font-proza-libre;
+  color: $color-font-black;
+}
+
+h1,h2,h3,h4,h5 {
+  font-family: $global-font-raleway;
+}
+
+img, input {
+  max-width: 100%;
+}
+
+p {
+  margin: 0 0 10px 0;
+}
+
+hr {
+  border-color: $color-black;
+}
+
+a {
+  color: $color-font-black;
+  cursor: pointer;
+  text-decoration: none;
+  @include transition-with-defaults(color);
+  &:hover {
+    color: $color-anchor-hover;
+  }
+}
+
+iframe {
+  width:100%;
+  max-width:100%;
+}

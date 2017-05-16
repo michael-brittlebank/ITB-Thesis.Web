@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../src/css/app.main.css';
+import '../../src/css/app.css';
 import { storiesOf, action, linkTo, configure, setAddon } from '@kadira/storybook';
 import infoAddon from '@kadira/react-storybook-addon-info';
 

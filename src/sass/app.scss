@@ -8,24 +8,33 @@ this file imports common classes used across the site
 @import "vendor/css-modal/modal";
 
 
+//abstract
+//-----------------------------
+@import "abstract/media-queries";
+@import "abstract/mixins";
+
+
 //base
 //-----------------------------
-@import "base/media-queries";
-@import "base/mixins";
 @import "base/colors";
 @import "base/icons";
 @import "base/fonts";
-@import "base/grid";
-@import "base/shared";
+@import "base/main";
+@import "base/helpers";
+
+
+//layout
+//-----------------------------
+@import "layout/grid";
+@import "layout/header";
+@import "layout/footer";
 
 
 //components
 //-----------------------------
 @import "components/buttons";
 @import "components/forms";
-@import "components/header";
 @import "components/modals";
-@import "components/footer";
 @import "components/dropdown-menu";
 
 

@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 
-import { actions } from '../../ducks/user';
-import authorizationService from '../../services/authorization';
+import { actions as userActions } from '../../ducks/user';
 
 import Register from './register';
 
@@ -9,15 +8,14 @@ const mapStateToProps = (state) => {
     let userState = state.userState;
     return ({
         user: userState.currentUser,
-        response: userState.response,
-        isLoggedIn: authorizationService.isUserLoggedIn(state)
+        response: userState.response
     });
 };
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        handleRegisterSubmit: (email, password) => {
-            dispatch(actions.register(email, password));
+        handleRegisterSubmit: (firstName, lastName, email, password) => {
+            dispatch(userActions.register(firstName, lastName, email, password));
         }
     })
 };

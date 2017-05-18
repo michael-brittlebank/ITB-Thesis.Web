@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 class FormService extends Component {
 
     static errorMessages = {
+        empty: 'Please enter a value',
         email: 'Invalid Email',
-        password: 'Invalid Password.  Must be at least 6 characters'
+        password: 'Invalid Password.  Must be at least 6 characters',
+        repeatPassword: 'Passwords do not match',
+        register: 'Registration failed.  Please double-check email and password and ensure email has not already been registered'
     };
 
     static getInputErrorMessage = function(showMessage, messageText){

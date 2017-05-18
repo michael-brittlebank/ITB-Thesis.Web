@@ -5,9 +5,8 @@ import { actions } from '../../../ducks/user';
 import ForgotPasswordModal from './forgotPasswordModal';
 
 const mapStateToProps = (state) => {
-    let userState = state.userState;
     return ({
-        forgotPassword: userState.forgotPassword
+        response: state.userState.response
     });
 };
 

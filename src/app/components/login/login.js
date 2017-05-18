@@ -36,7 +36,7 @@ class Login extends Component {
     };
 
     handleModalOpen = (event) => {
-        this.props.resetForgotPasswordModal();
+        this.props.resetUserResponse();
     };
 
     componentWillReceiveProps(nextProps){

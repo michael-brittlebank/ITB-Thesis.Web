@@ -21,8 +21,8 @@ const mapDispatchToProps = (dispatch) => {
         handleLoginSubmit: (email, password) => {
             dispatch(actions.login(email, password));
         },
-        resetForgotPasswordModal: () => {
-            dispatch(actions.forgotPasswordReset());
+        resetUserResponse: () => {
+            dispatch(actions.resetResponse());
         }
     })
 };

@@ -3,14 +3,14 @@ import classNames from 'classnames';
 
 import validationService from '../../../services/validation';
 import formService from '../../../services/form';
+import responseService from '../../../services/response';
 
 class ForgotPasswordModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             emailError: false,
-            submissionError: false,
-            submissionSuccess: false
+            submissionSuccess: null
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -28,21 +28,19 @@ class ForgotPasswordModal extends Component {
 
     componentWillReceiveProps(nextProps){
         this.setState({
-            submissionError: nextProps.forgotPassword.hasOwnProperty('success') && nextProps.forgotPassword.success === false,
-            submissionSuccess: nextProps.forgotPassword.hasOwnProperty('success') && nextProps.forgotPassword.success === true,
+            submissionError: responseService.responseHasError(nextProps.response),
         });
     }
 
     renderFormMessages(){
-        if(this.props.forgotPassword.hasOwnProperty('success')){
-            if (this.props.forgotPassword.success === false){
-                return formService.getFormErrorMessage(this.state.submissionError,'Forgot Password request failed.  Please try again later');
-            } else {
-                //reset form
-                this.email.value = '';
-                return formService.getFormSuccessMessage(this.state.submissionSuccess,'An email has been sent with instructions for resetting your password');
-            }
+        if (this.state.submissionError === true){
+            return formService.getFormErrorMessage(true,'Forgot Password request failed.  Please try again later');
+        } else if (this.state.submissionError === false){
+            //reset form
+            this.email.value = '';
+            return formService.getFormSuccessMessage(true,'An email has been sent with instructions for resetting your password');
         } else {
+            //default
             return formService.getFormErrorMessage(false,'');
         }
     }
@@ -68,7 +66,6 @@ class ForgotPasswordModal extends Component {
                                 Email address
                                 <input type="email"
                                        id="forgot-password-email"
-                                       defaultValue={this.props.forgotPassword.email}
                                        ref={(input) => this.email = input}/>
                             </label>
                             {formService.getInputErrorMessage(this.state.emailError,formService.errorMessages.email)}

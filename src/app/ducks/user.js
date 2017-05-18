@@ -12,8 +12,8 @@ export const types = {
     FORGOT_PASSWORD_REQUEST: 'USER/FORGOT_PASSWORD_REQUEST',
     FORGOT_PASSWORD_SUCCESS: 'USER/FORGOT_PASSWORD_SUCCESS',
     FORGOT_PASSWORD_FAILURE: 'USER/FORGOT_PASSWORD_FAILURE',
-    FORGOT_PASSWORD_RESET: 'USER/FORGOT_PASSWORD_RESET',
-    LOGOUT: 'USER/LOGOUT'
+    LOGOUT: 'USER/LOGOUT',
+    RESET_RESPONSE: 'USER/RESET_RESPONSE'
 };
 
 let defaultCurrentUser = {},
@@ -56,14 +56,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                forgotPassword: {
-                    success: true
-                }
-            };
-        case types.FORGOT_PASSWORD_RESET:
-            return {
-                ...state,
-                forgotPassword: defaultForgotPassword
+                response: action.response
             };
         case types.FORGOT_PASSWORD_FAILURE:
         case types.PROFILE_FAILURE:
@@ -72,6 +65,11 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 response: action.response
+            };
+        case types.RESET_RESPONSE:
+            return {
+                ...state,
+                response: defaultResponse
             };
         case types.LOGOUT:
             return initialState;
@@ -154,7 +152,8 @@ export const actions = {
             })
                 .then((response) => {
                     dispatch({
-                        type: types.FORGOT_PASSWORD_SUCCESS
+                        type: types.FORGOT_PASSWORD_SUCCESS,
+                        response: response
                     });
                 })
                 .catch((error) => {
@@ -165,9 +164,9 @@ export const actions = {
                 });
         };
     },
-    forgotPasswordReset: function(){
+    resetResponse: function(){
         return function (dispatch) {
-            dispatch({type: types.FORGOT_PASSWORD_RESET});
+            dispatch({type: types.RESET_RESPONSE});
         }
     }
 };

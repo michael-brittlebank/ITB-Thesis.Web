@@ -3,7 +3,7 @@ import Dashboard from './dashboard';
 
 const mapStateToProps = function(store) {
     return {
-        user: store.userState.user
+        user: store.userState.currentUser
     };
 };
 

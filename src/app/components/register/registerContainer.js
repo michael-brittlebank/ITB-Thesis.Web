@@ -8,8 +8,8 @@ import Register from './register';
 const mapStateToProps = (state) => {
     let userState = state.userState;
     return ({
-        user: userState.user,
-        error: userState.error,
+        user: userState.currentUser,
+        response: userState.response,
         isLoggedIn: authorizationService.isUserLoggedIn(state)
     });
 };

@@ -16,16 +16,16 @@ export const types = {
     LOGOUT: 'USER/LOGOUT'
 };
 
-let defaultUser = {},
+let defaultCurrentUser = {},
     defaultForgotPassword = {},
     defaultSessionToken = '',
-    defaultError = '';
+    defaultResponse = '';
 
 export const initialState = {
-    user: defaultUser,
+    currentUser: defaultCurrentUser,
     sessionToken: defaultSessionToken,
     isLoading: false,
-    error: defaultError,
+    response: defaultResponse,
     forgotPassword: defaultForgotPassword
 };
 
@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
-                error: defaultError
+                response: defaultResponse
             };
         case types.LOGIN_SUCCESS:
             return {
@@ -50,20 +50,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                user: action.user
-            };
-        case types.PROFILE_FAILURE:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.error
-            };
-        case types.LOGIN_FAILURE:
-            return {
-                ...state,
-                isLoading: false,
-                user: action.user,
-                error: action.error
+                currentUser: action.currentUser
             };
         case types.FORGOT_PASSWORD_SUCCESS:
             return {
@@ -73,19 +60,18 @@ export default (state = initialState, action) => {
                     success: true
                 }
             };
-        case types.FORGOT_PASSWORD_FAILURE:
-            return {
-                ...state,
-                isLoading: false,
-                forgotPassword: {
-                    success: false,
-                    email: action.email
-                }
-            };
         case types.FORGOT_PASSWORD_RESET:
             return {
                 ...state,
                 forgotPassword: defaultForgotPassword
+            };
+        case types.FORGOT_PASSWORD_FAILURE:
+        case types.PROFILE_FAILURE:
+        case types.LOGIN_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                response: action.response
             };
         case types.LOGOUT:
             return initialState;
@@ -111,13 +97,13 @@ export const actions = {
                 .then((response) => {
                     dispatch({
                         type: types.PROFILE_SUCCESS,
-                        user: response.data
+                        currentUser: response.data
                     });
                 })
                 .catch((error) => {
                     dispatch({
                         type: types.PROFILE_FAILURE,
-                        error: error.response.status
+                        response: error.response
                     });
                 });
         };
@@ -144,11 +130,7 @@ export const actions = {
                 .catch((error) => {
                     dispatch({
                         type: types.LOGIN_FAILURE,
-                        user: {
-                            email:email,
-                            password:password
-                        },
-                        error: error.response.status
+                        response: error.response
                     });
                 });
         };
@@ -178,7 +160,7 @@ export const actions = {
                 .catch((error) => {
                     dispatch({
                         type: types.FORGOT_PASSWORD_FAILURE,
-                        email: email
+                        response: error.response
                     });
                 });
         };

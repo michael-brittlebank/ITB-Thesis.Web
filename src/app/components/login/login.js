@@ -6,11 +6,14 @@ import ForgotPasswordModalContainer from './forgotPassword/forgotPasswordModalCo
 
 import validationService from '../../services/validation';
 import formService from '../../services/form';
+import responseService from '../../services/response';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: this.props.user.email,
+            password: this.props.user.password,
             emailError: false,
             passwordError: false,
             submissionError: false
@@ -42,7 +45,7 @@ class Login extends Component {
             return browserHistory.push('dashboard');
         }
         this.setState({
-            submissionError: !!nextProps.error
+            submissionError: responseService.responseHasError(nextProps.response)
         });
     }
 
@@ -65,7 +68,7 @@ class Login extends Component {
                                 Email Address
                                 <input type="email"
                                        id="email"
-                                       defaultValue={this.props.user.email}
+                                       defaultValue={this.state.email}
                                        ref={(input) => this.email = input}/>
                             </label>
                             {formService.getInputErrorMessage(this.state.emailError,formService.errorMessages.email)}
@@ -77,7 +80,7 @@ class Login extends Component {
                                 Password
                                 <input type="password"
                                        id="password"
-                                       defaultValue={this.props.user.password}
+                                       defaultValue={this.state.password}
                                        ref={(input) => this.password = input}/>
                             </label>
                             {formService.getInputErrorMessage(this.state.passwordError,formService.errorMessages.password)}

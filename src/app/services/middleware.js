@@ -13,7 +13,7 @@ class MiddlewareService extends Component {
 
     static isUserAdmin(nextState, replaceState) {
         let currentState = store.getState(),
-            user = currentState.userState.user;
+            user = currentState.userState.currentUser;
         if (!authorizationService.isUserLoggedIn(currentState) || !userService.isUserAdmin(user)) {
             replaceState({ nextPathname: nextState.location.pathname }, '/')
         }

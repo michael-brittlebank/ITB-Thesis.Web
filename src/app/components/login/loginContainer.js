@@ -8,10 +8,10 @@ import Login from './login';
 
 const mapStateToProps = (state) => {
     let userState = state.userState,
-        user = HelperService.isDevelopment()?{email: 'admin@test.com',password: 'pass123'}:userState.user;
+        user = HelperService.isDevelopment()?{email: 'admin@test.com',password: 'pass123'}:userState.currentUser;
     return ({
         user: user,
-        error: userState.error,
+        response: userState.response,
         isLoggedIn: authorizationService.isUserLoggedIn(state)
     });
 };

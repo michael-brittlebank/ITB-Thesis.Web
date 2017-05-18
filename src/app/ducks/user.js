@@ -2,6 +2,8 @@ import axios from 'axios';
 import store from '../../store';
 import { browserHistory } from 'react-router';
 
+import requestService from '../services/request';
+
 export const types = {
     LOGIN_REQUEST: 'USER/LOGIN_REQUEST',
     LOGIN_SUCCESS: 'USER/LOGIN_SUCCESS',
@@ -16,7 +18,10 @@ export const types = {
     RESET_RESPONSE: 'USER/RESET_RESPONSE',
     REGISTER_REQUEST: 'USER/REGISTER_REQUEST',
     REGISTER_SUCCESS: 'USER/REGISTER_SUCCESS',
-    REGISTER_FAILURE: 'USER/REGISTER_FAILURE'
+    REGISTER_FAILURE: 'USER/REGISTER_FAILURE',
+    UPDATE_REQUEST: 'USER/UPDATE_REQUEST',
+    UPDATE_SUCCESS: 'USER/UPDATE_SUCCESS',
+    UPDATE_FAILURE: 'USER/UPDATE_FAILURE'
 };
 
 let defaultCurrentUser = {},
@@ -86,12 +91,10 @@ export default (state = initialState, action) => {
 
 export const actions = {
     getProfile: function(){
-        let currentState = store.getState(),
-            sessionToken = currentState.userState.sessionToken;
         return axios({
             method: 'GET',
-            url: process.env.REACT_APP_API_URL + '/user',
-            headers: {'Authorization': 'Bearer ' + sessionToken}
+            url: requestService.getApiUrl()+ '/user',
+            headers: requestService.getSessionHeaders(store)
         });
     },
     profile: function(){
@@ -117,7 +120,7 @@ export const actions = {
             dispatch({type:types.LOGIN_REQUEST});
             return axios({
                 method: 'POST',
-                url: process.env.REACT_APP_API_URL+'/user',
+                url: requestService.getApiUrl()+'/user/login',
                 data: {
                     email: email,
                     password: password
@@ -129,7 +132,10 @@ export const actions = {
                         type: types.LOGIN_SUCCESS,
                         sessionToken: sessionToken
                     });
-                    return store.dispatch(actions.profile());
+                    return store.dispatch(actions.profile())
+                        .then(function(){
+                            return browserHistory.push('/dashboard');
+                        });
                 })
                 .catch((error) => {
                     dispatch({
@@ -151,7 +157,7 @@ export const actions = {
             dispatch({type: types.FORGOT_PASSWORD_REQUEST});
             return axios({
                 method: 'POST',
-                url: process.env.REACT_APP_API_URL + '/user/forgot-password',
+                url: requestService.getApiUrl()+ '/user/forgot-password',
                 data: {
                     email: email
                 }
@@ -180,7 +186,7 @@ export const actions = {
             dispatch({type:types.REGISTER_REQUEST});
             return axios({
                 method: 'PUT',
-                url: process.env.REACT_APP_API_URL+'/user',
+                url: requestService.getApiUrl()+'/user',
                 data: {
                     firstName: firstName,
                     lastName: lastName,
@@ -202,6 +208,33 @@ export const actions = {
                 .catch((error) => {
                     dispatch({
                         type: types.REGISTER_FAILURE,
+                        response: error.response
+                    });
+                });
+        };
+    },
+    update: function(firstName, lastName, password){
+        return function (dispatch) {
+            dispatch({type:types.UPDATE_REQUEST});
+            return axios({
+                method: 'POST',
+                url: requestService.getApiUrl()+'/user',
+                headers: requestService.getSessionHeaders(store),
+                data: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    password: password
+                }
+            })
+                .then((response) => {
+                    dispatch({
+                        type: types.UPDATE_SUCCESS,
+                        currentUser: response.data
+                    });
+                })
+                .catch((error) => {
+                    dispatch({
+                        type: types.UPDATE_FAILURE,
                         response: error.response
                     });
                 });

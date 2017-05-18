@@ -3,36 +3,55 @@ import classNames from 'classnames';
 
 import formService from '../../services/form';
 import validationService from '../../services/validation';
+import responseService from '../../services/response';
 
 class Profile extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            emailError: false,
+            passwordError: false,
             submissionError: false,
-            submissionSuccess: false
+            firstNameError: false,
+            lastNameError: false,
+            repeatPasswordError: null
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
     }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        let email = this.email.value;
-        this.setState({
-            emailError: !validationService.isValidEmail(email)
-        });
-        if (validationService.isValidEmail(email)) {
-            this.props.handleForgotPasswordSubmit(email);
-        }
-    };
 
     componentWillReceiveProps(nextProps){
         this.setState({
-            submissionError: nextProps.error.hasOwnProperty('success') && nextProps.forgotPassword.success === false,
-            submissionSuccess: nextProps.forgotPassword.hasOwnProperty('success') && nextProps.forgotPassword.success === true,
+            submissionError: responseService.responseHasError(nextProps.response)
         });
     }
+
+    handleProfileSubmit = (event) => {
+        event.preventDefault();
+        let submitPassword = '',
+            passwordValue = this.password.value,
+            repeatPassword = this.repeatPassword.value,
+            firstNameValue = this.firstName.value,
+            lastNameValue = this.lastName.value,
+            validFirstName = !validationService.isValueEmpty(firstNameValue),
+            validLastName = !validationService.isValueEmpty(lastNameValue),
+            validPassword = true,
+            validRepeatPassword = true;
+        if (passwordValue.length > 0 || repeatPassword.length > 0){
+            validPassword = validationService.isValidPassword(passwordValue);
+            validRepeatPassword = validationService.doPasswordsMatch(passwordValue, repeatPassword);
+            submitPassword = passwordValue;
+        }
+        this.setState({
+            firstNameError: !validFirstName,
+            lastNameError: !validLastName,
+            passwordError: !validPassword,
+            repeatPasswordError: !validRepeatPassword,
+            submissionError: null
+        });
+        if (validPassword && validRepeatPassword && validFirstName && validLastName) {
+            this.props.handleUpdateSubmit(firstNameValue, lastNameValue, submitPassword);
+        }
+    };
 
     render() {
         return (
@@ -40,23 +59,64 @@ class Profile extends Component {
                 <div className="row">
                     <div className="col-sm-12">
                         <h1>
-                            My profile
+                            Profile
                         </h1>
                     </div>
                     <div className="col-sm-6">
                         <h3>Personal Details</h3>
-                        <label className={
-                            classNames({
-                                'error': this.state.emailError
-                            })
-                        }>
-                            Email
-                            <input type="email"
-                                   id="forgot-password-email"
-                                   defaultValue={this.props.user.email}
-                                   ref={(input) => this.email = input}/>
-                        </label>
-                        {formService.getInputErrorMessage(this.state.emailError,formService.errorMessages.email)}
+                        <form onSubmit={this.handleProfileSubmit} className="standard-form">
+                            <p>
+                                Email Address: {this.props.user.email}
+                            </p>
+                            <label className={
+                                classNames({
+                                    'error': this.state.firstNameError
+                                })
+                            }>
+                                First Name
+                                <input type="text"
+                                       id="first-name"
+                                       defaultValue={this.props.user.firstName}
+                                       ref={(input) => this.firstName = input}/>
+                            </label>
+                            {formService.getInputErrorMessage(this.state.firstNameError,formService.errorMessages.empty)}
+                            <label className={
+                                classNames({
+                                    'error': this.state.lastNameError
+                                })
+                            }>
+                                Last Name
+                                <input type="text"
+                                       id="first-name"
+                                       defaultValue={this.props.user.lastName}
+                                       ref={(input) => this.lastName = input}/>
+                            </label>
+                            {formService.getInputErrorMessage(this.state.lastNameError,formService.errorMessages.empty)}
+                            <label className={
+                                classNames({
+                                    'error': this.state.passwordError
+                                })
+                            }>
+                                Password
+                                <input type="password"
+                                       id="password"
+                                       ref={(input) => this.password = input}/>
+                            </label>
+                            {formService.getInputErrorMessage(this.state.passwordError,formService.errorMessages.password)}
+                            <label className={
+                                classNames({
+                                    'error': this.state.repeatPasswordError
+                                })
+                            }>
+                                Repeat Password
+                                <input type="password"
+                                       id="repeat-password"
+                                       ref={(input) => this.repeatPassword = input}/>
+                            </label>
+                            {formService.getInputErrorMessage(this.state.repeatPasswordError,formService.errorMessages.repeatPassword)}
+                            <button type="submit" value="Submit" className="standard-button">Update Profile</button>
+                            {formService.getFormErrorMessage(this.state.submissionError,formService.errorMessages.update)}
+                        </form>
                     </div>
                     <div className="col-sm-6">
                         <h3>Recent Workouts</h3>

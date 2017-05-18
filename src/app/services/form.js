@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class FormService extends Component {
 
     static errorMessages = {
+        update: 'Unable to update',
         empty: 'Please enter a value',
         email: 'Invalid Email',
         password: 'Invalid Password.  Must be at least 6 characters',

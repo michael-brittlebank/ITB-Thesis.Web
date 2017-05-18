@@ -95,16 +95,19 @@ export default (state = initialState, action) => {
 }
 
 export const actions = {
+    getProfile: function(){
+        let currentState = store.getState(),
+            sessionToken = currentState.userState.sessionToken;
+        return axios({
+            method: 'GET',
+            url: process.env.REACT_APP_API_URL + '/user/me',
+            headers: {'Authorization': 'Bearer ' + sessionToken}
+        });
+    },
     profile: function(){
         return function (dispatch) {
             dispatch({type: types.PROFILE_REQUEST});
-            let currentState = store.getState(),
-                sessionToken = currentState.userState.sessionToken;
-            return axios({
-                method: 'GET',
-                url: process.env.REACT_APP_API_URL + '/user/me',
-                headers: {'Authorization': 'Bearer ' + sessionToken}
-            })
+            return actions.getProfile()
                 .then((response) => {
                     dispatch({
                         type: types.PROFILE_SUCCESS,

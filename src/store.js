@@ -5,19 +5,29 @@ import { autoRehydrate, persistStore } from 'redux-persist';
 
 import reducers from './app/ducks/index'
 import helperService from './app/services/helper';
+import { actions as userActions } from './app/ducks/user';
 
 const middleware = applyMiddleware(thunk, createLogger());
 let store;
 
 if (helperService.isDevelopment()){
-    //persist storage only for dev environment for now
     store = compose(
         middleware,
         autoRehydrate()
     )(createStore)(reducers);
 
-    persistStore(store);
-//todo expire cache https://github.com/rt2zz/redux-persist/issues/65
+    persistStore(store, {}, () => {
+        let currentState = store.getState(),
+            sessionToken = currentState.userState.sessionToken;
+        if (!!sessionToken){
+            userActions.getProfile()
+                .catch(() => {
+                    //purge store upon session cookie expiry
+                    persistStore(store).purge();
+                    return store.dispatch(userActions.logout());
+                });
+        }
+    });
 } else {
     store = createStore(
         reducers,

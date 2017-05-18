@@ -16,6 +16,10 @@ let store = compose(
 persistStore(store, {}, () => {
     let currentState = store.getState(),
         sessionToken = currentState.userState.sessionToken;
+    //clear last response objects after refresh
+    store.dispatch(userActions.resetResponse());
+
+    //check user session
     if (!!sessionToken){
         userActions.getProfile()
             .catch(() => {

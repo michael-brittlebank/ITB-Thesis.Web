@@ -4,10 +4,17 @@ import authorizationService from './authorization';
 import userService from './user';
 
 class MiddlewareService extends Component {
-    static isUserLoggedInMiddleware(nextState, replaceState) {
+    static isUserLoggedInCheck(nextState, replaceState) {
         let currentState = store.getState();
         if (!authorizationService.isUserLoggedIn(currentState)) {
             replaceState({ nextPathname: nextState.location.pathname }, '/')
+        }
+    }
+
+    static isUserLoggedInRedirect(nextState, replaceState) {
+        let currentState = store.getState();
+        if (authorizationService.isUserLoggedIn(currentState)) {
+            replaceState({ nextPathname: nextState.location.pathname }, '/dashboard')
         }
     }
 

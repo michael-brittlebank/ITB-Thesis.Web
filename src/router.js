@@ -27,7 +27,7 @@ export default (
     <Provider store={store}>
         <Router history={history}>
             {/*logged in*/}
-            <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
+            <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInCheck}>
                 <Route path="dashboard" component={DashboardContainer}/>
                 <Route path="profile" component={ProfileContainer}/>
                 {/*workouts*/}
@@ -41,7 +41,7 @@ export default (
                 <Route path="users" component={AdminUserLibraryContainer}/>
             </Route>
             {/*misc*/}
-            <Route path="/">
+            <Route path="/" onEnter={MiddlewareService.isUserLoggedInRedirect}>
                 <IndexRoute component={LoginContainer} />
                 <Route path="register" component={RegisterContainer}/>
             </Route>

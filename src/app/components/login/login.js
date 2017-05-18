@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router';
 import classNames from 'classnames';
 
 import ForgotPasswordModalContainer from './forgotPassword/forgotPasswordModalContainer';
@@ -40,10 +40,6 @@ class Login extends Component {
     };
 
     componentWillReceiveProps(nextProps){
-        if (nextProps.isLoggedIn){
-            //redirect after login
-            return browserHistory.push('dashboard');
-        }
         this.setState({
             submissionError: responseService.responseHasError(nextProps.response)
         });

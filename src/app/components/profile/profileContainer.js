@@ -6,7 +6,8 @@ import Profile from './profile';
 
 const mapStateToProps = (state) => {
     return ({
-        user: state.userState.currentUser
+        user: state.userState.currentUser,
+        response: state.userState.response
     });
 };
 

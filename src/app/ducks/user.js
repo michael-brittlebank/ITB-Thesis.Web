@@ -56,18 +56,15 @@ export default (state = initialState, action) => {
                 isLoading: false,
                 sessionToken: action.sessionToken
             };
+        case types.UPDATE_SUCCESS:
         case types.PROFILE_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                currentUser: action.currentUser
-            };
-        case types.FORGOT_PASSWORD_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
+                currentUser: action.currentUser,
                 response: action.response
             };
+        case types.FORGOT_PASSWORD_SUCCESS:
         case types.REGISTER_FAILURE:
         case types.FORGOT_PASSWORD_FAILURE:
         case types.PROFILE_FAILURE:
@@ -104,7 +101,8 @@ export const actions = {
                 .then((response) => {
                     dispatch({
                         type: types.PROFILE_SUCCESS,
-                        currentUser: response.data
+                        currentUser: response.data,
+                        response: response
                     });
                 })
                 .catch((error) => {
@@ -177,6 +175,7 @@ export const actions = {
         };
     },
     resetResponse: function(){
+        //todo, reset response on location change
         return function (dispatch) {
             dispatch({type: types.RESET_RESPONSE});
         }
@@ -229,7 +228,8 @@ export const actions = {
                 .then((response) => {
                     dispatch({
                         type: types.UPDATE_SUCCESS,
-                        currentUser: response.data
+                        currentUser: response.data,
+                        response: response
                     });
                 })
                 .catch((error) => {

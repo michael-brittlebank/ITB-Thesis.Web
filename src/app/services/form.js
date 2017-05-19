@@ -11,6 +11,10 @@ class FormService extends Component {
         register: 'Registration failed.  Please double-check email and password and ensure email has not already been registered'
     };
 
+    static successMessages = {
+        update: 'Updated successfully'
+    };
+
     static getInputErrorMessage = function(showMessage, messageText){
         return (
             <p className="input-error-message">

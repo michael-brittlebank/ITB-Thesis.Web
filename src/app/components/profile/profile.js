@@ -11,7 +11,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             passwordError: false,
-            submissionError: false,
+            submissionError: null,
             firstNameError: false,
             lastNameError: false,
             repeatPasswordError: null
@@ -52,6 +52,20 @@ class Profile extends Component {
             this.props.handleUpdateSubmit(firstNameValue, lastNameValue, submitPassword);
         }
     };
+
+    renderFormMessages(){
+        if (this.state.submissionError === true){
+            return formService.getFormErrorMessage(true,formService.errorMessages.update);
+        } else if (this.state.submissionError === false){
+            //reset form
+            this.password.value = '';
+            this.repeatPassword.value = '';
+            return formService.getFormSuccessMessage(true, formService.successMessages.update);
+        } else {
+            //default
+            return formService.getFormErrorMessage(false,'');
+        }
+    }
 
     render() {
         return (
@@ -115,7 +129,7 @@ class Profile extends Component {
                             </label>
                             {formService.getInputErrorMessage(this.state.repeatPasswordError,formService.errorMessages.repeatPassword)}
                             <button type="submit" value="Submit" className="standard-button">Update Profile</button>
-                            {formService.getFormErrorMessage(this.state.submissionError,formService.errorMessages.update)}
+                            {this.renderFormMessages()}
                         </form>
                     </div>
                     <div className="col-sm-6">

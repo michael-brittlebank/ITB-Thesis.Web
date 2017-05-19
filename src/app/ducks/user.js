@@ -175,7 +175,6 @@ export const actions = {
         };
     },
     resetResponse: function(){
-        //todo, reset response on location change
         return function (dispatch) {
             dispatch({type: types.RESET_RESPONSE});
         }

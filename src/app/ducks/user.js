@@ -27,7 +27,7 @@ export const types = {
 let defaultCurrentUser = {},
     defaultForgotPassword = {},
     defaultSessionToken = '',
-    defaultResponse = '';
+    defaultResponse = {};
 
 export const initialState = {
     currentUser: defaultCurrentUser,

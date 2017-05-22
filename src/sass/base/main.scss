@@ -1,7 +1,7 @@
 @import "fonts";
 @import "colors";
-@import "../abstract/mixins";
-@import "../abstract/media-queries";
+@import "../abstracts/mixins";
+@import "../abstracts/media-queries";
 
 //main styles
 //-----------------------------
@@ -41,4 +41,9 @@ a {
 iframe {
   width:100%;
   max-width:100%;
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
 }

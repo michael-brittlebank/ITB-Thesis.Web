@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import moment from 'moment';
 
 class HelperService extends Component {
     static isDevelopment(){
@@ -12,6 +13,14 @@ class HelperService extends Component {
         return re.test(email);
         /*eslint-enable*/
         /*jshint ignore:end*/
+    }
+
+    static capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    static formatTimestamp(timestamp){
+        return moment(timestamp).calendar();
     }
 }
 

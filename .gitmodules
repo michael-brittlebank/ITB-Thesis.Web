@@ -1,0 +1,3 @@
+[submodule "src/app/ducks"]
+	path = src/app/ducks
+	url = https://github.com/mike-stumpf/ITB-Thesis.Ducks.git

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import classNames from 'classnames';
 
 import ForgotPasswordModalContainer from './forgotPassword/forgotPasswordModalContainer';
@@ -21,6 +21,24 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount(){
+        if (this.props.userIsLoggedIn) {
+            browserHistory.push('/dashboard');
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.userIsLoggedIn) {
+            browserHistory.push('/dashboard');
+        }
+        this.setState({
+            submissionError: responseService.responseHasError(nextProps.response)
+        });
+    }
+
+
+    //events
+    //---------------------------------
     handleSubmit = (event) => {
         event.preventDefault();
         let email = this.email.value,
@@ -39,12 +57,9 @@ class Login extends Component {
         this.props.resetUserResponse();
     };
 
-    componentWillReceiveProps(nextProps){
-        this.setState({
-            submissionError: responseService.responseHasError(nextProps.response)
-        });
-    }
 
+    //renders
+    //---------------------------------
     render() {
         return (
             <main id="container-login" className="grid-container">

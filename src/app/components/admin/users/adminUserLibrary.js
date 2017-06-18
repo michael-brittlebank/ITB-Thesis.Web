@@ -1,30 +1,57 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import { Link } from 'react-router';
 
 import userService from '../../../services/user';
 import helperService from '../../../services/helper';
 
 class AdminUserLibrary extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+          users: this.props.users
+        };
+        this.handleDeleteUserSubmit = this.handleDeleteUserSubmit.bind(this);
+    }
+
     componentDidMount() {
         this.props.getUsersData(1);
     }
 
     componentWillReceiveProps(nextProps){
-
+        this.state = {
+            users: nextProps.users
+        };
     }
 
+    //events
+    //---------------------------------
+    handleDeleteUserSubmit = (userId) => {
+        if(confirm('Are you sure you want to delete this user?')) {
+            this.props.deleteUserSubmit(userId);
+        }
+    };
+
+
+    //renders
+    //---------------------------------
     renderUsersData() {
-        let users = _.map(this.props.users,function(user,index){
-            return (
-                <tr key={index}>
-                    <td>{userService.getUserFullName(user)}</td>
-                    <td>{helperService.capitalizeFirstLetter(user.role.toLowerCase())}</td>
-                    <td>{helperService.formatTimestamp(user.lastModified)}</td>
-                    <td><button type="button" className="standard-button danger">Delete</button></td>
-                </tr>
-            )
-        });
+        let currentUser = this.props.currentUser,
+            users = this.state.users.map((user,index) => {
+                let deleteButton = user.id === currentUser.id?(
+                    <Link to="/profile"><button className="standard-button">Profile</button></Link>
+                ):(
+                    <button type="button" className="standard-button danger" onClick={() => this.handleDeleteUserSubmit(user.id)}>Delete</button>
+                );
+                return (
+                    <tr key={index}>
+                        <td>{userService.getUserFullName(user)}</td>
+                        <td>{helperService.capitalizeFirstLetter(user.role.toLowerCase())}</td>
+                        <td>{helperService.formatTimestamp(user.lastModified)}</td>
+                        <td>{deleteButton}</td>
+                    </tr>
+                )
+            });
         return (
             <table>
                 <thead>

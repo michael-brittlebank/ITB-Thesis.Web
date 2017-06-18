@@ -38,7 +38,7 @@ class Header extends Component {
                         <ul className="standard-menu">
                             <li>
                                 <Link to="dashboard" className="header-link">
-                                    Dashboard
+                                    Logo
                                 </Link>
                             </li>
                         </ul>
@@ -47,9 +47,12 @@ class Header extends Component {
                         <ul className="standard-menu">
                             <li>
                                 <Link to="profile" className="header-link">
-                                    Profile
+                                    User
                                 </Link>
                                 <ul className="sub-menu right">
+                                    <Link to="profile">
+                                        Profile
+                                    </Link>
                                     {this.renderAdminLink()}
                                     <li onClick={this.handleLogout}>
                                         <a>Logout</a>

@@ -8,24 +8,14 @@ class Dashboard extends Component {
         return (
             <main id="container-dashboard" className="grid-container">
                 <div className="row">
-                    <div className="col-sm-6">
-                        <p>
-                            Hello {userService.getUserFullName(this.props.user)}.
-                        </p>
-                        <p>
-                            Welcome back.
-                        </p>
+                    <div className="col-sm-12">
+                        <h1>
+                            Welcome back {userService.getUserFullName(this.props.user)}.
+                        </h1>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-12 text-center">
                         <Link to="workout">
                             <button className="standard-button" type="button">Start Workout</button>
-                        </Link>
-                    </div>
-                    <div className="col-sm-6">
-                        <Link to="profile">
-                            <button className="standard-button" type="button">My Profile</button>
                         </Link>
                     </div>
                 </div>

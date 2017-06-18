@@ -6,7 +6,9 @@ import store from '../../../ducks/webStore';
 
 const mapStateToProps = function(store) {
     return {
-        users: store.adminState.users
+        currentUser: store.userState.currentUser,
+        users: store.adminState.users,
+        response: store.adminState.response
     };
 };
 
@@ -14,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
     return({
         getUsersData: (page) => {
             dispatch(adminActions.getUsers(store, page));
+        },
+        deleteUserSubmit: (userId) => {
+            dispatch(adminActions.deleteUserById(store,userId));
         }
     })
 };

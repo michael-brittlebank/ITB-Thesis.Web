@@ -20,6 +20,15 @@ class Register extends Component {
         this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            submissionError: responseService.responseHasError(nextProps.response)
+        });
+    }
+
+
+    //events
+    //---------------------------------
     handleRegisterSubmit = (event) => {
         event.preventDefault();
         let emailValue = this.email.value,
@@ -45,12 +54,9 @@ class Register extends Component {
         }
     };
 
-    componentWillReceiveProps(nextProps){
-        this.setState({
-            submissionError: responseService.responseHasError(nextProps.response)
-        });
-    }
 
+    //renders
+    //---------------------------------
     render() {
         return (
             <main id="container-login" className="grid-container">

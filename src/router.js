@@ -40,22 +40,22 @@ export default (
         <Router history={history}>
             {/*logged in*/}
             <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
-                <Route path="dashboard" component={DashboardContainer}/>
-                <Route path="profile" component={ProfileContainer}/>
+                <Route path="/dashboard" component={DashboardContainer}/>
+                <Route path="/profile" component={ProfileContainer}/>
                 {/*workouts*/}
-                <Route path="workout" component={WorkoutContainer}/>
-                <Route path="workouts" component={WorkoutLibraryContainer}/>
+                <Route path="/workout" component={WorkoutContainer}/>
+                <Route path="/workouts" component={WorkoutLibraryContainer}/>
             </Route>
             {/*admin*/}
-            <Route path="admin" component={MainLayout} onEnter={MiddlewareService.isUserAdminMiddleware}>
+            <Route path="/admin" component={MainLayout} onEnter={MiddlewareService.isUserAdminMiddleware}>
                 <IndexRoute component={AdminDashboardContainer} />
-                <Route path="exercises" component={AdminExerciseLibraryContainer}/>
-                <Route path="users" component={AdminUserLibraryContainer}/>
+                <Route path="/admin/exercises" component={AdminExerciseLibraryContainer}/>
+                <Route path="/admin/users" component={AdminUserLibraryContainer}/>
             </Route>
             {/*misc*/}
             <Route path="/" onEnter={MiddlewareService.isUserLoggedInRedirectMiddleware}>
                 <IndexRoute component={LoginContainer} />
-                <Route path="register" component={RegisterContainer}/>
+                <Route path="/register" component={RegisterContainer}/>
             </Route>
             <Route component={MainLayout}>
                 <Route path='*' component={NotFound} />

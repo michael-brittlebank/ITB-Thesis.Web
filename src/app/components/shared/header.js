@@ -20,7 +20,7 @@ class Header extends Component {
         if (this.props.isAdmin){
             return (
                 <li>
-                    <Link to="admin">
+                    <Link to="/admin">
                         Admin
                     </Link>
                 </li>
@@ -37,7 +37,7 @@ class Header extends Component {
                     <div className="col-sm-8">
                         <ul className="standard-menu">
                             <li>
-                                <Link to="dashboard" className="header-link">
+                                <Link to="/dashboard" className="header-link">
                                     Logo
                                 </Link>
                             </li>
@@ -46,11 +46,11 @@ class Header extends Component {
                     <div className="col-sm-4 text-right">
                         <ul className="standard-menu">
                             <li>
-                                <Link to="profile" className="header-link">
+                                <Link to="/profile" className="header-link">
                                     User
                                 </Link>
                                 <ul className="sub-menu right">
-                                    <Link to="profile">
+                                    <Link to="/profile">
                                         Profile
                                     </Link>
                                     {this.renderAdminLink()}

@@ -14,7 +14,7 @@ class Dashboard extends Component {
                         </h1>
                     </div>
                     <div className="col-sm-12 text-center">
-                        <Link to="workout">
+                        <Link to="/workout">
                             <button className="standard-button" type="button">Start Workout</button>
                         </Link>
                     </div>

@@ -100,7 +100,7 @@ class Login extends Component {
                                 <a onClick={this.handleModalOpen} href="#m--forgot-password">Forgot Password?</a>
                             </p>
                             <p className="text-center">
-                                <Link to="register">
+                                <Link to="/register">
                                     Don't have an account? Sign Up!
                                 </Link>
                             </p>

@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 
-import { actions as userActions } from '../../ducks/user';
+import { actions as userActions } from '../../ducks/ducks/user';
+import store from '../../ducks/webStore';
 
 import Profile from './profile';
 
@@ -14,7 +15,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return({
         handleUpdateSubmit: (firstName, lastName, password) => {
-            dispatch(userActions.update(firstName, lastName, password));
+            dispatch(userActions.update(store, firstName, lastName, password));
         }
     })
 };

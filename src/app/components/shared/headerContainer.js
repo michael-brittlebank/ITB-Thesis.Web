@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 
-import { actions as userActions } from '../../ducks/user';
+import { actions as userActions } from '../../ducks/ducks/user';
 import userService from '../../services/user';
 
 import Header from './header';

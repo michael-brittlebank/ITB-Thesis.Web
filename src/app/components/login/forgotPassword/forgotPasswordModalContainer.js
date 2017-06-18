@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 
-import { actions as userActions } from '../../../ducks/user';
+import { actions as userActions } from '../../../ducks/ducks/user';
+import store from '../../../ducks/webStore';
 
 import ForgotPasswordModal from './forgotPasswordModal';
 
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return({
         handleForgotPasswordSubmit: (email) => {
-            dispatch(userActions.forgotPasswordRequest(email));
+            dispatch(userActions.forgotPasswordRequest(store, email));
         }
     })
 };

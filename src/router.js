@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import store from './store';
+import store from './app/ducks/webStore';
 import MiddlewareService from './app/services/middleware';
 
 // Layouts
@@ -27,7 +27,7 @@ export default (
     <Provider store={store}>
         <Router history={history}>
             {/*logged in*/}
-            <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInCheck}>
+            <Route component={MainLayout} onEnter={MiddlewareService.isUserLoggedInMiddleware}>
                 <Route path="dashboard" component={DashboardContainer}/>
                 <Route path="profile" component={ProfileContainer}/>
                 {/*workouts*/}
@@ -35,13 +35,13 @@ export default (
                 <Route path="workouts" component={WorkoutLibraryContainer}/>
             </Route>
             {/*admin*/}
-            <Route path="admin" component={MainLayout} onEnter={MiddlewareService.isUserAdmin}>
+            <Route path="admin" component={MainLayout} onEnter={MiddlewareService.isUserAdminMiddleware}>
                 <IndexRoute component={AdminDashboardContainer} />
                 <Route path="exercises" component={AdminExerciseLibraryContainer}/>
                 <Route path="users" component={AdminUserLibraryContainer}/>
             </Route>
             {/*misc*/}
-            <Route path="/" onEnter={MiddlewareService.isUserLoggedInRedirect}>
+            <Route path="/" onEnter={MiddlewareService.isUserLoggedInRedirectMiddleware}>
                 <IndexRoute component={LoginContainer} />
                 <Route path="register" component={RegisterContainer}/>
             </Route>

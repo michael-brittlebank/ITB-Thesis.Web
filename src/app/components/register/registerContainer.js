@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 
-import { actions as userActions } from '../../ducks/user';
+import { actions as userActions } from '../../ducks/ducks/user';
+import store from '../../ducks/webStore';
 
 import Register from './register';
 
@@ -15,7 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return({
         handleRegisterSubmit: (firstName, lastName, email, password) => {
-            dispatch(userActions.register(firstName, lastName, email, password));
+            dispatch(userActions.register(store, firstName, lastName, email, password));
         }
     })
 };

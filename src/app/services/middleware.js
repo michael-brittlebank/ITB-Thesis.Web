@@ -1,24 +1,24 @@
 import { Component } from 'react';
-import store from '../../store';
+import store from '../ducks/webStore';
 import authorizationService from './authorization';
 import userService from './user';
 
 class MiddlewareService extends Component {
-    static isUserLoggedInCheck(nextState, replaceState) {
+    static isUserLoggedInMiddleware(nextState, replaceState) {
         let currentState = store.getState();
         if (!authorizationService.isUserLoggedIn(currentState)) {
             replaceState({ nextPathname: nextState.location.pathname }, '/')
         }
     }
 
-    static isUserLoggedInRedirect(nextState, replaceState) {
+    static isUserLoggedInRedirectMiddleware(nextState, replaceState) {
         let currentState = store.getState();
         if (authorizationService.isUserLoggedIn(currentState)) {
             replaceState({ nextPathname: nextState.location.pathname }, '/dashboard')
         }
     }
 
-    static isUserAdmin(nextState, replaceState) {
+    static isUserAdminMiddleware(nextState, replaceState) {
         let currentState = store.getState(),
             user = currentState.userState.currentUser;
         if (!authorizationService.isUserLoggedIn(currentState) || !userService.isUserAdmin(user)) {

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import AdminUserLibrary from './adminUserLibrary';
 
-import { actions as adminActions } from '../../../ducks/admin';
+import { actions as adminActions } from '../../../ducks/ducks/admin';
+import store from '../../../ducks/webStore';
 
 const mapStateToProps = function(store) {
     return {
@@ -12,7 +13,7 @@ const mapStateToProps = function(store) {
 const mapDispatchToProps = (dispatch) => {
     return({
         getUsersData: (page) => {
-            dispatch(adminActions.getUsers(page));
+            dispatch(adminActions.getUsers(store, page));
         }
     })
 };

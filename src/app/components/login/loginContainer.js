@@ -1,7 +1,8 @@
 import {connect} from 'react-redux';
 
-import { actions } from '../../ducks/user';
+import { actions as userActions } from '../../ducks/ducks/user';
 import HelperService from '../../services/helper';
+import store from '../../ducks/webStore';
 
 import Login from './login';
 
@@ -17,10 +18,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return({
         handleLoginSubmit: (email, password) => {
-            dispatch(actions.login(email, password));
+            dispatch(userActions.login(store, email, password));
         },
         resetUserResponse: () => {
-            dispatch(actions.resetResponse());
+            dispatch(userActions.resetResponse());
         }
     })
 };

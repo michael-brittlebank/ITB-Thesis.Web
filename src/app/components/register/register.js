@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IndexLink } from 'react-router';
+import { IndexLink, browserHistory } from 'react-router';
 import classNames from 'classnames';
 
 import validationService from '../../services/validation';
@@ -20,7 +20,16 @@ class Register extends Component {
         this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     }
 
+    componentDidMount(){
+        if (this.props.userIsLoggedIn) {
+            browserHistory.push('/dashboard');
+        }
+    }
+
     componentWillReceiveProps(nextProps){
+        if (nextProps.userIsLoggedIn) {
+            browserHistory.push('/dashboard');
+        }
         this.setState({
             submissionError: responseService.responseHasError(nextProps.response)
         });

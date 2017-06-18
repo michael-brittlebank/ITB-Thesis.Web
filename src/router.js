@@ -4,6 +4,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import store from './app/ducks/webStore';
 import MiddlewareService from './app/services/middleware';
+import authorizationService from './app/services/authorization';
 
 // Layouts
 import MainLayout from './app/layouts/main';
@@ -22,6 +23,13 @@ import AdminUserLibraryContainer from './app/components/admin/users/adminUserLib
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
+
+//unsubscribe action listener
+store.subscribe(function(){
+    if (!authorizationService.isUserLoggedIn(store.getState()) && browserHistory.getCurrentLocation().pathname !== '/') {
+        browserHistory.push('/');
+    }
+});
 
 export default (
     <Provider store={store}>

@@ -26,7 +26,11 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 //unsubscribe action listener
 store.subscribe(function(){
-    if (!authorizationService.isUserLoggedIn(store.getState()) && browserHistory.getCurrentLocation().pathname !== '/') {
+    let unauthorizedRoutes = [
+        '/',
+        '/register'
+    ];
+    if (!authorizationService.isUserLoggedIn(store.getState()) && unauthorizedRoutes.indexOf(browserHistory.getCurrentLocation().pathname) === -1) {
         browserHistory.push('/');
     }
 });

@@ -13,9 +13,14 @@ class Dashboard extends Component {
                             Welcome back {userService.getUserFullName(this.props.user)}.
                         </h1>
                     </div>
-                    <div className="col-sm-12 text-center">
+                    <div className="col-sm-6 text-center">
                         <Link to="/workout">
                             <button className="standard-button" type="button">Start Workout</button>
+                        </Link>
+                    </div>
+                    <div className="col-sm-6 text-center">
+                        <Link to="/workouts">
+                            <button className="standard-button" type="button">View Workouts</button>
                         </Link>
                     </div>
                 </div>

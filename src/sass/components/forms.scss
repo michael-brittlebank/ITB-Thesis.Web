@@ -16,6 +16,30 @@
 
 }
 
+table {
+  margin-bottom: 25px;
+  border-collapse: collapse;
+}
+
+thead td {
+  font-weight: bold;
+  font-size: 1.25rem;
+  padding: 10px 0 5px 0;
+  border-bottom: 1px solid $color-font-black;
+  border-top: 1px solid $color-font-black;
+}
+
+tbody {
+  td {
+    padding: 5px 0;
+  }
+  tr:nth-of-type(2n){
+    td {
+      background-color: $color-menu-active-state;
+    }
+  }
+}
+
 .error {
   position: relative;
   input {

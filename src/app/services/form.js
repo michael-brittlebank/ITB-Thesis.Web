@@ -39,6 +39,15 @@ class FormService extends Component {
         );
     };
 
+    static serializeForm = function(formElement){
+        let data = {};
+        formElement.querySelectorAll('input, select, textarea').forEach(function(entry){
+            if(!!entry.name) {
+                data[entry.name] = entry.value;
+            }
+        });
+        return data;
+    }
 
 }
 

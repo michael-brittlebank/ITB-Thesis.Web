@@ -94,7 +94,7 @@ class Register extends Component {
                             }>
                                 Last Name
                                 <input type="text"
-                                       id="first-name"
+                                       id="last-name"
                                        ref={(input) => this.lastName = input}/>
                             </label>
                             {formService.getInputErrorMessage(this.state.lastNameError,formService.errorMessages.empty)}

@@ -4,7 +4,7 @@
 ## Description ##
 
 
-* Web component of thesis project
+* This is the web component of the thesis
 
 
 ## Software Architecture (High Level) ##

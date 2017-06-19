@@ -132,9 +132,6 @@ class Profile extends Component {
                             {this.renderFormMessages()}
                         </form>
                     </div>
-                    <div className="col-sm-6">
-                        <h3>Recent Workouts</h3>
-                    </div>
                 </div>
             </main>
         );

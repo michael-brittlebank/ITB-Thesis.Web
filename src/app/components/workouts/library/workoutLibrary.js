@@ -25,7 +25,6 @@ class WorkoutLibrary extends Component {
     //renders
     //---------------------------------
     renderWorkouts(){
-        console.log('rendering');
         let workouts = this.state.workouts.map((workout) => {
                 return (
                     <tr>

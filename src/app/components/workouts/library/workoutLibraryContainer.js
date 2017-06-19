@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 
-import { actions as workoutActions } from '../../ducks/ducks/workout';
-import store from '../../ducks/webStore';
+import { actions as workoutActions } from '../../../ducks/ducks/workout';
+import store from '../../../ducks/webStore';
 
 import WorkoutLibrary from './workoutLibrary';
 

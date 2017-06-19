@@ -15,7 +15,7 @@ import DashboardContainer from './app/components/dashboard/dashboardContainer';
 import NotFound from './app/components/shared/notFound';
 import WorkoutContainer from './app/components/workouts/workoutContainer';
 import ProfileContainer from './app/components/profile/profileContainer';
-import WorkoutLibraryContainer from './app/components/workouts/workoutLibrary';
+import WorkoutLibraryContainer from './app/components/workouts/workoutLibraryContainer';
 import RegisterContainer from './app/components/register/registerContainer';
 import AdminDashboardContainer from './app/components/admin/adminDashboardContainer';
 import AdminExerciseLibraryContainer from './app/components/admin/exercises/adminExerciseLibraryContainer';

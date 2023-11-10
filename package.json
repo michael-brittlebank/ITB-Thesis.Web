@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/mike-stumpf/ITB-Thesis.Web#readme",
   "dependencies": {
-    "axios": "0.16.1",
+    "axios": "1.6.0",
     "classnames": "2.2.5",
     "lodash": "4.17.4",
     "moment": "2.18.1",
